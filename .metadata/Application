@@ -1,0 +1,26 @@
+{
+    "id": "ExtBox1-ext-gen2236",
+    "type": "application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "ClassTree"
+        ],
+        "stores": [
+            "MyJsonTreeStore"
+        ],
+        "views": [
+            "MyContainer"
+        ],
+        "designer|launch": "",
+        "name": "MyApp"
+    },
+    "customConfigs": [],
+    "designerId": "application",
+    "$viewOrder": 0,
+    "expanded": true
+}
