@@ -3,6 +3,7 @@
  */
 Ext.define('Docs.view.Viewport', {
     extend: 'Ext.dataview.NestedList',
+    requires: ['Docs.view.cls.PackageLogic'],
     config: {
         fullscreen: true,
         title: 'Touch 2 Docs',
@@ -63,6 +64,10 @@ Ext.define('Docs.view.Viewport', {
             }]
         };
 
+        var logic = new Docs.view.cls.PackageLogic({
+            classes: Docs.data.classes
+        });
+
         Ext.define('Docs.model.ListItem', {
             extend: 'Ext.data.Model',
             fields: [{
@@ -74,7 +79,7 @@ Ext.define('Docs.view.Viewport', {
         var store = new Ext.data.TreeStore({
             model: 'Docs.model.ListItem',
             defaultRootProperty: 'items',
-            root: data
+            root: logic.create()
         });
 
         this.callParent(arguments);
