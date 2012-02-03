@@ -1,69 +1,55 @@
 /**
  * Main viewport of Docs app
  */
+Ext.define('Docs.Detail', {
+    extend: 'Ext.Panel',
+    xtype: 'detail',
+    config: {
+        cls: 'ux-code',
+        styleHtmlContent: true,
+        scrollable: true,
+        masked: true
+    }
+});
+
 Ext.define('Docs.view.Viewport', {
     extend: 'Ext.dataview.NestedList',
     requires: ['Docs.view.cls.PackageLogic'],
     config: {
         fullscreen: true,
         title: 'Touch 2 Docs',
-        displayField: 'text'
+        displayField: 'text',
+        detailCard: new Docs.Detail(),
+        listeners: {
+            leafitemtap: function(me, list, index, item, e) {
+                var store = list.getStore(),
+                    record  = store.getAt(index),
+                    detailCard = me.getDetailCard();
+                detailCard.update('');
+
+                list.setMasked({
+                    xtype: 'loadmask',
+                    message: 'Loading...'
+                });
+
+                Ext.Ajax.request({
+                    url: 'http://docs.sencha.com/touch/2-0/?print=/api/' + record.get('className'),
+                    success: function(response) {
+
+                        detailCard.setHtml(response.responseText);
+                        list.unmask();
+                    },
+                    failure: function() {
+                        detailCard.setHtml("Loading failed.");
+                        list.unmask();
+                    }
+                });
+
+            }
+        }
     },
 
     initialize: function(){
-        var data = {
-            text: 'Groceries',
-            items: [{
-                text: 'Drinks',
-                items: [{
-                    text: 'Water',
-                    items: [{
-                        text: 'Sparkling',
-                        leaf: true
-                    }, {
-                        text: 'Still',
-                        leaf: true
-                    }]
-                }, {
-                    text: 'Coffee',
-                    leaf: true
-                }, {
-                    text: 'Espresso',
-                    leaf: true
-                }, {
-                    text: 'Redbull',
-                    leaf: true
-                }, {
-                    text: 'Coke',
-                    leaf: true
-                }, {
-                    text: 'Diet Coke',
-                    leaf: true
-                }]
-            }, {
-                text: 'Fruit',
-                items: [{
-                    text: 'Bananas',
-                    leaf: true
-                }, {
-                    text: 'Lemon',
-                    leaf: true
-                }]
-            }, {
-                text: 'Snacks',
-                items: [{
-                    text: 'Nuts',
-                    leaf: true
-                }, {
-                    text: 'Pretzels',
-                    leaf: true
-                }, {
-                    text: 'Wasabi Peas',
-                    leaf: true
-                }]
-            }]
-        };
-
         var logic = new Docs.view.cls.PackageLogic({
             classes: Docs.data.classes
         });
@@ -72,6 +58,9 @@ Ext.define('Docs.view.Viewport', {
             extend: 'Ext.data.Model',
             fields: [{
                 name: 'text',
+                type: 'string'
+            }, {
+                name: 'className',
                 type: 'string'
             }]
         });
@@ -85,5 +74,8 @@ Ext.define('Docs.view.Viewport', {
         this.callParent(arguments);
 
         this.setStore(store);
-    }
+    },
+
+
+
 });

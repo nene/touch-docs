@@ -40,6 +40,7 @@ Ext.define('Docs.view.cls.PackageLogic', {
     // When package for the class exists, add class node to that
     // package; otherwise create the package first.
     addClass: function(cls) {
+
         if (cls["private"] && !this.showPrivateClasses) {
             return;
         }
@@ -83,6 +84,7 @@ Ext.define('Docs.view.cls.PackageLogic', {
     classNode: function(cls) {
       return {
         text: this.shortName(cls.name),
+        className: cls.name,
         url: "#!/api/"+cls.name,
         iconCls: cls.icon,
         cls: cls["private"] ? "private" : "",
@@ -104,7 +106,9 @@ Ext.define('Docs.view.cls.PackageLogic', {
     // Utility method that given a package or class name finds the name
     // of its parent package.
     packageName: function(name) {
-      return name.slice(0, -this.shortName(name).length - 1) || "";
+      var pkgName = name.slice(0, -this.shortName(name).length - 1);
+      pkgName = pkgName ? (pkgName + ' >') : '';
+      return pkgName;
     },
 
     // Utility method that given full package or class name extracts
