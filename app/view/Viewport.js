@@ -25,23 +25,22 @@ Ext.define('Docs.view.Viewport', {
                 var store = list.getStore(),
                     record  = store.getAt(index),
                     detailCard = me.getDetailCard();
+
                 detailCard.update('');
 
-                list.setMasked({
-                    xtype: 'loadmask',
-                    message: 'Loading...'
-                });
-
+                list.setMasked(true);
+                detailCard.setMasked(true);
                 Ext.Ajax.request({
                     url: 'http://docs.sencha.com/touch/2-0/?print=/api/' + record.get('className'),
                     success: function(response) {
-
                         detailCard.setHtml(response.responseText);
                         list.unmask();
+                        detailCard.unmask();
                     },
                     failure: function() {
                         detailCard.setHtml("Loading failed.");
                         list.unmask();
+                        detailCard.unmask();
                     }
                 });
 
