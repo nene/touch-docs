@@ -1,0 +1,307 @@
+<div><pre class="hierarchy"><h4>Hierarchy</h4><div class='subclass first-child'><a href='#!/api/Ext.Base' rel='Ext.Base' class='docClass'>Ext.Base</a><div class='subclass '><strong>Ext.util.JSONP</strong></div></div><h4>Files</h4><div class='dependency'><a href='source/JSONP.html#Ext-util-JSONP' target='_blank'>JSONP.js</a></div></pre><div class='doc-contents'><p>Provides functionality to make cross-domain requests with JSONP (JSON with Padding).
+http://en.wikipedia.org/wiki/JSON#JSONP</p>
+
+<p>
+<b>Note that if you are retrieving data from a page that is in a domain that is NOT the same as the originating domain
+of the running page, you must use this class, because of the same origin policy.</b><br>
+<p>
+The content passed back from a server resource requested by a JSONP request<b>must</b> be executable JavaScript
+source code because it is used as the source inside a &lt;script> tag.<br>
+<p>
+In order for the browser to process the returned data, the server must wrap the data object
+with a call to a callback function, the name of which is passed as a parameter callbackKey
+Below is a Java example for a servlet which returns data for either a ScriptTagProxy, or an HttpProxy
+depending on whether the callback name was passed:
+<p>
+<pre><code>boolean scriptTag = false;
+String cb = request.getParameter("callback");
+if (cb != null) {
+    scriptTag = true;
+    response.setContentType("text/javascript");
+} else {
+    response.setContentType("application/x-json");
+}
+Writer out = response.getWriter();
+if (scriptTag) {
+    out.write(cb + "(");
+}
+out.print(dataBlock.toJsonString());
+if (scriptTag) {
+    out.write(");");
+}
+</code></pre>
+<p>Below is a PHP example to do the same thing:</p>
+<pre><code>$callback = $_REQUEST['callback'];
+
+// Create the output object.
+$output = array('a' => 'Apple', 'b' => 'Banana');
+
+//start output
+if ($callback) {
+    header('Content-Type: text/javascript');
+    echo $callback . '(' . json_encode($output) . ');';
+} else {
+    header('Content-Type: application/x-json');
+    echo json_encode($output);
+}
+</code></pre>
+<p>Below is the ASP.Net code to do the same thing:</p>
+<pre><code>String jsonString = "{success: true}";
+String cb = Request.Params.Get("callback");
+String responseString = "";
+if (!String.IsNullOrEmpty(cb)) {
+    responseString = cb + "(" + jsonString + ")";
+} else {
+    responseString = jsonString;
+}
+Response.Write(responseString);
+</code></pre>
+
+</div><div class='members'><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-property'>Properties</h3><div class='subsection'><div id='property-current' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.util.JSONP'>Ext.util.JSONP</span><br/><a href='source/JSONP.html#Ext-util-JSONP-property-current' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.util.JSONP-property-current' class='name expandable'>current</a><span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></span></div><div class='description'><div class='short'>Read-only current executing request ...</div><div class='long'><p>Read-only current executing request</p>
+<p>Defaults to: <code>null</code></p></div></div></div><div id='property-queue' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.util.JSONP'>Ext.util.JSONP</span><br/><a href='source/JSONP.html#Ext-util-JSONP-property-queue' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.util.JSONP-property-queue' class='name expandable'>queue</a><span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a></span></div><div class='description'><div class='short'>Read-only queue ...</div><div class='long'><p>Read-only queue</p>
+<p>Defaults to: <code>[]</code></p></div></div></div><div id='property-self' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-property-self' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-property-self' class='name expandable'>self</a><span> : <a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a></span><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Get the reference to the current class from which this object was instantiated. ...</div><div class='long'><p>Get the reference to the current class from which this object was instantiated. Unlike <a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">statics</a>,
+<code>this.self</code> is scope-dependent and it's meant to be used for dynamic inheritance. See <a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">statics</a>
+for a detailed comparison</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    statics: {
+        speciesName: 'Cat' // My.Cat.speciesName = 'Cat'
+    },
+
+    constructor: function() {
+        alert(this.self.speciesName); / dependentOL on 'this'
+    },
+
+    clone: function() {
+        return new this.self();
+    }
+});
+
+
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.SnowLeopard', {
+    extend: 'My.Cat',
+    statics: {
+        speciesName: 'Snow Leopard'         // My.SnowLeopard.speciesName = 'Snow Leopard'
+    }
+});
+
+var cat = new My.Cat();                     // alerts 'Cat'
+var snowLeopard = new My.SnowLeopard();     // alerts 'Snow Leopard'
+
+var clone = snowLeopard.clone();
+alert(<a href="#!/api/Ext-method-getClassName" rel="Ext-method-getClassName" class="docClass">Ext.getClassName</a>(clone));             // alerts 'My.SnowLeopard'
+</code></pre>
+</div></div></div></div></div><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-method'>Methods</h3><div class='subsection'><div id='method-callOverridden' class='member first-child inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-callOverridden' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-callOverridden' class='name expandable'>callOverridden</a>( <span class='pre'><a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments args</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='deprecated signature'>deprecated</strong><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Call the original method that was previously overridden with override
+
+Ext.define('My.Cat', {
+    constructor: functi...</div><div class='long'><p>Call the original method that was previously overridden with <a href="#!/api/Ext.Base-static-method-override" rel="Ext.Base-static-method-override" class="docClass">override</a></p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    constructor: function() {
+        alert("I'm a cat!");
+    }
+});
+
+My.Cat.override({
+    constructor: function() {
+        alert("I'm going to be a cat!");
+
+        var instance = this.callOverridden();
+
+        alert("Meeeeoooowwww");
+
+        return instance;
+    }
+});
+
+var kitty = new My.Cat(); // alerts "I'm going to be a cat!"
+                          // alerts "I'm a cat!"
+                          // alerts "Meeeeoooowwww"
+</code></pre>
+        <div class='signature-box deprecated'>
+        <p>This method has been <strong>deprecated</strong> </p>
+        <p>as of 4.1. Use <a href="#!/api/Ext.Base-method-callParent" rel="Ext.Base-method-callParent" class="docClass">callParent</a> instead.</p>
+
+        </div>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments<div class='sub-desc'><p>The arguments, either an array or the <code>arguments</code> object
+from the current method, for example: <code>this.callOverridden(arguments)</code></p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>Returns the result of calling the overridden method</p>
+</div></li></ul></div></div></div><div id='method-callParent' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-callParent' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-callParent' class='name expandable'>callParent</a>( <span class='pre'><a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments args</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Call the "parent" method of the current method. ...</div><div class='long'><p>Call the "parent" method of the current method. That is the method previously
+overridden by derivation or by an override (see <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>).</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Base', {
+     constructor: function (x) {
+         this.x = x;
+     },
+
+     statics: {
+         method: function (x) {
+             return x;
+         }
+     }
+ });
+
+ <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Derived', {
+     extend: 'My.Base',
+
+     constructor: function () {
+         this.callParent([21]);
+     }
+ });
+
+ var obj = new My.Derived();
+
+ alert(obj.x);  // alerts 21
+</code></pre>
+
+<p>This can be used with an override as follows:</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.DerivedOverride', {
+     override: 'My.Derived',
+
+     constructor: function (x) {
+         this.callParent([x*2]); // calls original My.Derived constructor
+     }
+ });
+
+ var obj = new My.Derived();
+
+ alert(obj.x);  // now alerts 42
+</code></pre>
+
+<p>This also works with static methods.</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Derived2', {
+     extend: 'My.Base',
+
+     statics: {
+         method: function (x) {
+             return this.callParent([x*2]); // calls My.Base.method
+         }
+     }
+ });
+
+ alert(My.Base.method(10);     // alerts 10
+ alert(My.Derived2.method(10); // alerts 20
+</code></pre>
+
+<p>Lastly, it also works with overridden static methods.</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Derived2Override', {
+     override: 'My.Derived2',
+
+     statics: {
+         method: function (x) {
+             return this.callParent([x*2]); // calls My.Derived2.method
+         }
+     }
+ });
+
+ alert(My.Derived2.method(10); // now alerts 40
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments<div class='sub-desc'><p>The arguments, either an array or the <code>arguments</code> object
+from the current method, for example: <code>this.callParent(arguments)</code></p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>Returns the result of calling the parent method</p>
+</div></li></ul></div></div></div><div id='method-destroy' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-destroy' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-destroy' class='name expandable'>destroy</a>( <span class='pre'></span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<p>Overrides: <a href='#!/api/Ext.Component-method-destroy' rel='Ext.Component-method-destroy' class='docClass'>Ext.Component.destroy</a></p></div></div></div><div id='method-getConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-getConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-getConfig' class='name expandable'>getConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-getCurrentConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-getCurrentConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-getCurrentConfig' class='name expandable'>getCurrentConfig</a>( <span class='pre'></span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+</div></div></div><div id='method-getInitialConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-getInitialConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-getInitialConfig' class='name expandable'>getInitialConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name</span> )</div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-hasConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-hasConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-hasConfig' class='name expandable'>hasConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-initConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-initConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-initConfig' class='name expandable'>initConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> instanceConfig</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Initialize configuration for this class. ...</div><div class='long'><p>Initialize configuration for this class. a typical example:</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.awesome.Class', {
+    // The default config
+    config: {
+        name: 'Awesome',
+        isAwesome: true
+    },
+
+    constructor: function(config) {
+        this.initConfig(config);
+    }
+});
+
+var awesome = new My.awesome.Class({
+    name: 'Super Awesome'
+});
+
+alert(awesome.getName()); // 'Super Awesome'
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>instanceConfig</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>mixins The mixin prototypes as key - value pairs</p>
+</div></li></ul></div></div></div><div id='method-onConfigUpdate' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-onConfigUpdate' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-onConfigUpdate' class='name expandable'>onConfigUpdate</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> names, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> callback, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>names</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>callback</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-request' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.util.JSONP'>Ext.util.JSONP</span><br/><a href='source/JSONP.html#Ext-util-JSONP-method-request' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.util.JSONP-method-request' class='name expandable'>request</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> config</span> )</div><div class='description'><div class='short'>Make a cross-domain request using JSONP. ...</div><div class='long'><p>Make a cross-domain request using JSONP.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>config</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>Valid configurations are:</p>
+
+<ul>
+ <li>url - {String} - Url to request data from. (required) </li>
+ <li>params - {Object} - A set of key/value pairs to be url encoded and passed as GET parameters in the request.</li>
+ <li>callbackKey - {String} - Key specified by the server-side provider.</li>
+ <li>callback - {Function} - Will be passed a single argument of the result of the request.</li>
+ <li>scope - {Scope} - Scope to execute your callback in.</li>
+</ul>
+
+</div></li></ul></div></div></div><div id='method-setConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-setConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-setConfig' class='name expandable'>setConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> config, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> applyIfNotSet</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>config</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>applyIfNotSet</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-statics' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-statics' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-statics' class='name expandable'>statics</a>( <span class='pre'></span> ) : <a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Get the reference to the class from which this object was instantiated. ...</div><div class='long'><p>Get the reference to the class from which this object was instantiated. Note that unlike <a href="#!/api/Ext.Base-property-self" rel="Ext.Base-property-self" class="docClass">self</a>,
+<code>this.statics()</code> is scope-independent and it always returns the class from which it was called, regardless of what
+<code>this</code> points to during run-time</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    statics: {
+        totalCreated: 0,
+        speciesName: 'Cat' // My.Cat.speciesName = 'Cat'
+    },
+
+    constructor: function() {
+        var statics = this.statics();
+
+        alert(statics.speciesName);     // always equals to 'Cat' no matter what 'this' refers to
+                                        // equivalent to: My.Cat.speciesName
+
+        alert(this.self.speciesName);   // dependent on 'this'
+
+        statics.totalCreated++;
+    },
+
+    clone: function() {
+        var cloned = new this.self;                      // dependent on 'this'
+
+        cloned.groupName = this.statics().speciesName;   // equivalent to: My.Cat.speciesName
+
+        return cloned;
+    }
+});
+
+
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.SnowLeopard', {
+    extend: 'My.Cat',
+
+    statics: {
+        speciesName: 'Snow Leopard'     // My.SnowLeopard.speciesName = 'Snow Leopard'
+    },
+
+    constructor: function() {
+        this.callParent();
+    }
+});
+
+var cat = new My.Cat();                 // alerts 'Cat', then alerts 'Cat'
+
+var snowLeopard = new My.SnowLeopard(); // alerts 'Cat', then alerts 'Snow Leopard'
+
+var clone = snowLeopard.clone();
+alert(<a href="#!/api/Ext-method-getClassName" rel="Ext-method-getClassName" class="docClass">Ext.getClassName</a>(clone));         // alerts 'My.SnowLeopard'
+alert(clone.groupName);                 // alerts 'Cat'
+
+alert(My.Cat.totalCreated);             // alerts 3
+</code></pre>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div></div></div></div></div>

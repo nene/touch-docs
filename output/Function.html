@@ -1,0 +1,234 @@
+<div><pre class="hierarchy"><h4>Files</h4><div class='dependency'><a href='source/Function.html#Function' target='_blank'>Function.js</a></div></pre><div class='doc-contents'><p>Every function in JavaScript is actually a <code>Function</code> object.</p>
+
+<p><code>Function</code> objects created with the <code>Function</code> constructor are parsed when the
+function is created. This is less efficient than declaring a function and
+calling it within your code, because functions declared with the function
+statement are parsed with the rest of the code.</p>
+
+<p>All arguments passed to the function are treated as the names of the
+identifiers of the parameters in the function to be created, in the order in
+which they are passed.</p>
+
+<p>Invoking the <code>Function</code> constructor as a function (without using the <code>new</code>
+operator) has the same effect as invoking it as a constructor.</p>
+
+<h1>Specifying arguments with the <code>Function</code> constructor</h1>
+
+<p>The following code creates a <code>Function</code> object that takes two arguments.</p>
+
+<pre><code>// Example can be run directly in your JavaScript console
+
+// Create a function that takes two arguments and returns the sum of those
+arguments
+var adder = new Function("a", "b", "return a + b");
+
+// Call the function
+adder(2, 6);
+// &gt; 8
+</code></pre>
+
+<p>The arguments "a" and "b" are formal argument names that are used in the
+function body, "return a + b".</p>
+
+<div class="notice">
+Documentation for this class comes from <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Function">MDN</a>
+and is available under <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons: Attribution-Sharealike license</a>.
+</div>
+
+</div><div class='members'><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-property'>Properties</h3><div class='subsection'><div id='property-length' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Function'>Function</span><br/><a href='source/Function.html#Function-property-length' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Function-property-length' class='name not-expandable'>length</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span></div><div class='description'><div class='short'><p>Specifies the number of arguments expected by the function.</p>
+</div><div class='long'><p>Specifies the number of arguments expected by the function.</p>
+</div></div></div></div></div><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-method'>Methods</h3><div class='subsection'><div id='method-constructor' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Function'>Function</span><br/><a href='source/Function.html#Function-method-constructor' target='_blank' class='view-source'>view source</a></div><strong class='new-keyword'>new</strong><a href='#!/api/Function-method-constructor' class='name expandable'>Function</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a>... args, <a href="#!/api/String" rel="String" class="docClass">String</a> functionBody</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Creates new Function object. ...</div><div class='long'><p>Creates new Function object.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/String" rel="String" class="docClass">String</a>...<div class='sub-desc'><p>Names to be used by the function as formal argument names. Each must be a
+string that corresponds to a valid JavaScript identifier or a list of such
+strings separated with a comma; for example "<code>x</code>", "<code>theValue</code>", or "<code>a,b</code>".</p>
+</div></li><li><span class='pre'>functionBody</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>A string containing the JavaScript statements comprising the function
+definition.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-apply' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Function'>Function</span><br/><a href='source/Function.html#Function-method-apply' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Function-method-apply' class='name expandable'>apply</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> thisArg, <a href="#!/api/Array" rel="Array" class="docClass">Array</a> argsArray</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Applies the method of another object in the context of a different object (the
+calling object); arguments can be pass...</div><div class='long'><p>Applies the method of another object in the context of a different object (the
+calling object); arguments can be passed as an Array object.</p>
+
+<p>You can assign a different this object when calling an existing function. <code>this</code> refers to the
+current object, the calling object. With <code>apply</code>, you can write a method once and then inherit it
+in another object, without having to rewrite the method for the new object.</p>
+
+<p><code>apply</code> is very similar to call, except for the type of arguments it supports. You can use an
+arguments array instead of a named set of parameters. With apply, you can use an array literal, for
+example, <code>fun.apply(this, ['eat', 'bananas'])</code>, or an Array object, for example, <code>fun.apply(this,
+new Array('eat', 'bananas'))</code>.</p>
+
+<p>You can also use arguments for the <code>argsArray</code> parameter. <code>arguments</code> is a local variable of a
+function. It can be used for all unspecified arguments of the called object. Thus, you do not have
+to know the arguments of the called object when you use the <code>apply</code> method. You can use arguments
+to pass all the arguments to the called object. The called object is then responsible for handling
+the arguments.</p>
+
+<p>Since ECMAScript 5th Edition you can also use any kind of object which is array like, so in
+practice this means it's going to have a property length and integer properties in the range
+<code>[0...length)</code>. As an example you can now use a NodeList or a own custom object like <code>{'length': 2,
+'0': 'eat', '1': 'bananas'}</code>.</p>
+
+<p>You can use <code>apply</code> to chain constructors for an object, similar to Java. In the following example,
+the constructor for the <code>Product</code> object is defined with two parameters, <code>name</code> and <code>value</code>. Two
+other functions <code>Food</code> and <code>Toy</code> invoke <code>Product</code> passing <code>this</code> and <code>arguments</code>. <code>Product</code>
+initializes the properties <code>name</code> and <code>price</code>, both specialized functions define the category. In
+this example, the <code>arguments</code> object is fully passed to the product constructor and corresponds to
+the two defined parameters.</p>
+
+<pre><code>function Product(name, price) {
+    this.name = name;
+    this.price = price;
+
+    if (price &lt; 0)
+        throw RangeError('Cannot create product "' + name + '" with a negative price');
+    return this;
+}
+
+function Food(name, price) {
+    Product.apply(this, arguments);
+    this.category = 'food';
+}
+Food.prototype = new Product();
+
+function Toy(name, price) {
+    Product.apply(this, arguments);
+    this.category = 'toy';
+}
+Toy.prototype = new Product();
+
+var cheese = new Food('feta', 5);
+var fun = new Toy('robot', 40);
+</code></pre>
+
+<p>Clever usage of <code>apply</code> allows you to use built-ins functions for some tasks that otherwise
+probably would have been written by looping over the array values. As an example here we are going
+to use Math.max/Math.min to find out the maximum/minimum value in an array.</p>
+
+<pre><code>//min/max number in an array
+var numbers = [5, 6, 2, 3, 7];
+
+//using Math.min/Math.max apply
+var max = Math.max.apply(null, numbers); // This about equal to Math.max(numbers[0], ...) or
+// Math.max(5, 6, ..)
+var min = Math.min.apply(null, numbers);
+
+//vs. simple loop based algorithm
+max = -Infinity, min = +Infinity;
+
+for (var i = 0; i &lt; numbers.length; i++) {
+if (numbers[i] &gt; max)
+    max = numbers[i];
+if (numbers[i] &lt; min)
+    min = numbers[i];
+}
+</code></pre>
+
+<p>But beware: in using <code>apply</code> this way, you run the risk of exceeding the JavaScript engine's
+argument length limit. The consequences of applying a function with too many arguments (think more
+than tens of thousands of arguments) vary across engines, because the limit (indeed even the nature
+of any excessively-large-stack behavior) is unspecified. Some engines will throw an exception. More
+perniciously, others will arbitrarily limit the number of arguments actually passed to the applied
+function. (To illustrate this latter case: if such an engine had a limit of four arguments [actual
+limits are of course significantly higher], it would be as if the arguments 5, 6, 2, 3 had been
+passed to apply in the examples above, rather than the full array.)  If your value array might grow
+into the tens of thousands, use a hybrid strategy: apply your function to chunks of the array at a
+time:</p>
+
+<pre><code>function minOfArray(arr)
+{
+    var min = Infinity;
+    var QUANTUM = 32768;
+    for (var i = 0, len = arr.length; i &lt; len; i += QUANTUM)
+    {
+        var submin = Math.min.apply(null, numbers.slice(i, Math.min(i + QUANTUM, len)));
+        min = Math.min(submin, min);
+    }
+return min;
+}
+
+var min = minOfArray([5, 6, 2, 3, 7]);
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>thisArg</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The value of this provided for the call to fun. Note that this may not be
+the actual value seen by the method: if the method is a function in non-strict mode code, null and
+undefined will be replaced with the global object, and primitive values will be boxed.</p>
+</div></li><li><span class='pre'>argsArray</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a><div class='sub-desc'><p>An array like object, specifying the arguments with which fun should be
+called, or null or undefined if no arguments should be provided to the function.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>Returns what the function returns.</p>
+</div></li></ul></div></div></div><div id='method-call' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Function'>Function</span><br/><a href='source/Function.html#Function-method-call' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Function-method-call' class='name expandable'>call</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> thisArg, <a href="#!/api/Object" rel="Object" class="docClass">Object</a>... args</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Calls (executes) a method of another object in the context of a different
+object (the calling object); arguments can ...</div><div class='long'><p>Calls (executes) a method of another object in the context of a different
+object (the calling object); arguments can be passed as they are.</p>
+
+<p>You can assign a different this object when calling an existing function. <code>this</code> refers to the
+current object, the calling object.</p>
+
+<p>With <code>call</code>, you can write a method once and then inherit it in another object, without having to
+rewrite the method for the new object.</p>
+
+<p>You can use call to chain constructors for an object, similar to Java. In the following example,
+the constructor for the product object is defined with two parameters, name and value. Another
+object, <code>prod_dept</code>, initializes its unique variable (<code>dept</code>) and calls the constructor for
+<code>product</code> in its constructor to initialize the other variables.</p>
+
+<pre><code>function Product(name, price) {
+    this.name = name;
+    this.price = price;
+
+    if (price &lt; 0)
+        throw RangeError('Cannot create product "' + name + '" with a negative price');
+    return this;
+}
+
+function Food(name, price) {
+    Product.call(this, name, price);
+    this.category = 'food';
+}
+Food.prototype = new Product();
+
+function Toy(name, price) {
+    Product.call(this, name, price);
+    this.category = 'toy';
+}
+Toy.prototype = new Product();
+
+var cheese = new Food('feta', 5);
+var fun = new Toy('robot', 40);
+</code></pre>
+
+<p>In this purely constructed example, we create anonymous function and use <code>call</code> to invoke it on
+every object in an array. The main purpose of the anonymous function here is to add a print
+function to every object, which is able to print the right index of the object in the array.
+Passing the object as <code>this</code> value was not strictly necessary, but is done for explanatory purpose.</p>
+
+<pre><code>var animals = [
+{species: 'Lion', name: 'King'},
+{species: 'Whale', name: 'Fail'}
+];
+
+for (var i = 0; i &lt; animals.length; i++) {
+    (function (i) {
+    this.print = function () {
+        console.log('#' + i  + ' ' + this.species + ': ' + this.name);
+    }
+}).call(animals[i], i);
+}
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>thisArg</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The value of this provided for the call to <code>fun</code>.Note that this may not be
+the actual value seen by the method: if the method is a function in non-strict mode code, <code>null</code>
+and <code>undefined</code> will be replaced with the global object, and primitive values will be boxed.</p>
+</div></li><li><span class='pre'>args</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a>...<div class='sub-desc'><p>Arguments for the object.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>Returns what the function returns.</p>
+</div></li></ul></div></div></div><div id='method-toString' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Function'>Function</span><br/><a href='source/Function.html#Function-method-toString' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Function-method-toString' class='name expandable'>toString</a>( <span class='pre'></span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Returns a string representing the source code of the function. ...</div><div class='long'><p>Returns a string representing the source code of the function. Overrides the
+<code><a href="#!/api/Object-method-toString" rel="Object-method-toString" class="docClass">Object.toString</a></code> method.</p>
+
+<p>The <a href="#!/api/Function" rel="Function" class="docClass">Function</a> object overrides the <code>toString</code> method of the Object object; it does
+not inherit <a href="#!/api/Object-method-toString" rel="Object-method-toString" class="docClass">Object.toString</a>. For <code>Function</code> objects, the <code>toString</code> method returns a string
+representation of the object.</p>
+
+<p>JavaScript calls the <code>toString</code> method automatically when a <code>Function</code> is to be represented as a
+text value or when a Function is referred to in a string concatenation.</p>
+
+<p>For <code>Function</code> objects, the built-in <code>toString</code> method decompiles the function back into the
+JavaScript source that defines the function. This string includes the <code>function</code> keyword, the
+argument list, curly braces, and function body.</p>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>The function as a string.</p>
+</div></li></ul></div></div></div></div></div></div></div>

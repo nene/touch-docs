@@ -1,0 +1,225 @@
+<div><pre class="hierarchy"><h4>Files</h4><div class='dependency'><a href='source/Object2.html#Ext-Object' target='_blank'>Object.js</a></div></pre><div class='doc-contents'><p>A collection of useful static methods to deal with objects</p>
+</div><div class='members'><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-property'>Properties</h3><div class='subsection'><div id='property-mergeIf' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-property-mergeIf' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-property-mergeIf' class='name not-expandable'>mergeIf</a><span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><strong class='private signature'>private</strong></div><div class='description'><div class='short'>
+</div><div class='long'>
+</div></div></div></div></div><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-method'>Methods</h3><div class='subsection'><div id='method-chain' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-chain' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-chain' class='name expandable'>chain</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object</span> )</div><div class='description'><div class='short'>Returns a new object with the given object as the prototype chain. ...</div><div class='long'><p>Returns a new object with the given object as the prototype chain.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The prototype chain for the new object.</p>
+</div></li></ul></div></div></div><div id='method-classify' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-classify' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-classify' class='name expandable'>classify</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-each' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-each' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-each' class='name expandable'>each</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object, <a href="#!/api/Function" rel="Function" class="docClass">Function</a> fn, [<a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope]</span> )</div><div class='description'><div class='short'>Iterate through an object and invoke the given callback function for each iteration. ...</div><div class='long'><p>Iterate through an object and invoke the given callback function for each iteration. The iteration can be stop
+by returning <code>false</code> in the callback function. For example:</p>
+
+<pre><code>var person = {
+    name: 'Jacky'
+    hairColor: 'black'
+    loves: ['food', 'sleeping', 'wife']
+};
+
+<a href="#!/api/Ext.Object-method-each" rel="Ext.Object-method-each" class="docClass">Ext.Object.each</a>(person, function(key, value, myself) {
+    console.log(key + ":" + value);
+
+    if (key === 'hairColor') {
+        return false; // stop the iteration
+    }
+});
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The object to iterate</p>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>The callback function. Passed arguments for each iteration are:</p>
+
+<ul>
+<li>{String} <code>key</code></li>
+<li>{Mixed} <code>value</code></li>
+<li>{Object} <code>object</code> The object itself</li>
+</ul>
+
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a> (optional)<div class='sub-desc'><p>The execution scope (<code>this</code>) of the callback function</p>
+</div></li></ul></div></div></div><div id='method-fromQueryString' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-fromQueryString' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-fromQueryString' class='name expandable'>fromQueryString</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> queryString, [<a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a> recursive]</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Converts a query string back into an object. ...</div><div class='long'><p>Converts a query string back into an object.</p>
+
+<ul>
+<li><p>Non-recursive:</p>
+
+<p>  <a href="#!/api/Ext.Object-method-fromQueryString" rel="Ext.Object-method-fromQueryString" class="docClass">Ext.Object.fromQueryString</a>(foo=1&amp;bar=2); // returns {foo: 1, bar: 2}
+  <a href="#!/api/Ext.Object-method-fromQueryString" rel="Ext.Object-method-fromQueryString" class="docClass">Ext.Object.fromQueryString</a>(foo=&amp;bar=2); // returns {foo: null, bar: 2}
+  <a href="#!/api/Ext.Object-method-fromQueryString" rel="Ext.Object-method-fromQueryString" class="docClass">Ext.Object.fromQueryString</a>(some%20price=%24300); // returns {'some price': '$300'}
+  <a href="#!/api/Ext.Object-method-fromQueryString" rel="Ext.Object-method-fromQueryString" class="docClass">Ext.Object.fromQueryString</a>(colors=red&amp;colors=green&amp;colors=blue); // returns {colors: ['red', 'green', 'blue']}</p></li>
+<li><p>Recursive:</p>
+
+<p>  <a href="#!/api/Ext.Object-method-fromQueryString" rel="Ext.Object-method-fromQueryString" class="docClass">Ext.Object.fromQueryString</a>("username=Jacky&amp;dateOfBirth[day]=1&amp;dateOfBirth[month]=2&amp;dateOfBirth[year]=1911&amp;hobbies[0]=coding&amp;hobbies[1]=eating&amp;hobbies[2]=sleeping&amp;hobbies[3][0]=nested&amp;hobbies[3][1]=stuff", true);</p>
+
+<p>  // returns
+  {</p>
+
+<pre><code>  username: 'Jacky',
+  dateOfBirth: {
+      day: '1',
+      month: '2',
+      year: '1911'
+  },
+  hobbies: ['coding', 'eating', 'sleeping', ['nested', 'stuff']]
+</code></pre>
+
+<p>  }</p></li>
+</ul>
+
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>queryString</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The query string to decode</p>
+</div></li><li><span class='pre'>recursive</span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a> (optional)<div class='sub-desc'><p>Whether or not to recursively decode the string. This format is supported by
+PHP / Ruby on Rails servers and similar. Defaults to false</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-getKey' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-getKey' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-getKey' class='name expandable'>getKey</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> value</span> )</div><div class='description'><div class='short'>Returns the first matching key corresponding to the given value. ...</div><div class='long'><p>Returns the first matching key corresponding to the given value.
+If no matching value is found, null is returned.</p>
+
+<pre><code>var person = {
+    name: 'Jacky',
+    loves: 'food'
+};
+
+alert(<a href="#!/api/Ext.Object-method-getKey" rel="Ext.Object-method-getKey" class="docClass">Ext.Object.getKey</a>(sencha, 'food')); // alerts 'loves'
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>value</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The value to find</p>
+</div></li></ul></div></div></div><div id='method-getKeys' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-getKeys' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-getKeys' class='name expandable'>getKeys</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a>[]</div><div class='description'><div class='short'>Gets all keys of the given object as an array. ...</div><div class='long'><p>Gets all keys of the given object as an array.</p>
+
+<pre><code>var values = <a href="#!/api/Ext.Object-method-getKeys" rel="Ext.Object-method-getKeys" class="docClass">Ext.Object.getKeys</a>({
+    name: 'Jacky',
+    loves: 'food'
+}); // ['name', 'loves']
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a>[]</span><div class='sub-desc'><p>An array of keys from the object</p>
+</div></li></ul></div></div></div><div id='method-getSize' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-getSize' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-getSize' class='name expandable'>getSize</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object</span> ) : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></div><div class='description'><div class='short'>Gets the total number of this object's own properties
+
+var size = Ext.Object.getSize({
+    name: 'Jacky',
+    loves: ...</div><div class='long'><p>Gets the total number of this object's own properties</p>
+
+<pre><code>var size = <a href="#!/api/Ext.Object-method-getSize" rel="Ext.Object-method-getSize" class="docClass">Ext.Object.getSize</a>({
+    name: 'Jacky',
+    loves: 'food'
+}); // size equals 2
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><div class='sub-desc'><p>size</p>
+</div></li></ul></div></div></div><div id='method-getValues' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-getValues' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-getValues' class='name expandable'>getValues</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object</span> ) : <a href="#!/api/Array" rel="Array" class="docClass">Array</a></div><div class='description'><div class='short'>Gets all values of the given object as an array. ...</div><div class='long'><p>Gets all values of the given object as an array.</p>
+
+<pre><code>var values = <a href="#!/api/Ext.Object-method-getValues" rel="Ext.Object-method-getValues" class="docClass">Ext.Object.getValues</a>({
+    name: 'Jacky',
+    loves: 'food'
+}); // ['Jacky', 'food']
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Array" rel="Array" class="docClass">Array</a></span><div class='sub-desc'><p>An array of values from the object</p>
+</div></li></ul></div></div></div><div id='method-merge' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-merge' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-merge' class='name expandable'>merge</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> source</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Merges any number of objects recursively without referencing them or their children. ...</div><div class='long'><p>Merges any number of objects recursively without referencing them or their children.</p>
+
+<pre><code>var extjs = {
+    companyName: 'Ext JS',
+    products: ['Ext JS', 'Ext GWT', 'Ext Designer'],
+    isSuperCool: true
+    office: {
+        size: 2000,
+        location: 'Palo Alto',
+        isFun: true
+    }
+};
+
+var newStuff = {
+    companyName: 'Sencha Inc.',
+    products: ['Ext JS', 'Ext GWT', 'Ext Designer', 'Sencha Touch', 'Sencha Animator'],
+    office: {
+        size: 40000,
+        location: 'Redwood City'
+    }
+};
+
+var sencha = <a href="#!/api/Ext.Object-method-merge" rel="Ext.Object-method-merge" class="docClass">Ext.Object.merge</a>({}, extjs, newStuff);
+
+// sencha then equals to
+{
+    companyName: 'Sencha Inc.',
+    products: ['Ext JS', 'Ext GWT', 'Ext Designer', 'Sencha Touch', 'Sencha Animator'],
+    isSuperCool: true
+    office: {
+        size: 30000,
+        location: 'Redwood City'
+        isFun: true
+    }
+}
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>source</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>...</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>merged The object that is created as a result of merging all the objects passed in.</p>
+</div></li></ul></div></div></div><div id='method-mergeIf' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-mergeIf' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-mergeIf' class='name expandable'>mergeIf</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> source</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>source</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-toQueryObjects' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-toQueryObjects' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-toQueryObjects' class='name expandable'>toQueryObjects</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> name, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> value, <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a> recursive</span> )</div><div class='description'><div class='short'>Convert a name - value pair to an array of objects with support for nested structures; useful to construct
+query stri...</div><div class='long'><p>Convert a <code>name</code> - <code>value</code> pair to an array of objects with support for nested structures; useful to construct
+query strings. For example:</p>
+
+<pre><code>var objects = <a href="#!/api/Ext.Object-method-toQueryObjects" rel="Ext.Object-method-toQueryObjects" class="docClass">Ext.Object.toQueryObjects</a>('hobbies', ['reading', 'cooking', 'swimming']);
+
+// objects then equals:
+[
+    { name: 'hobbies', value: 'reading' },
+    { name: 'hobbies', value: 'cooking' },
+    { name: 'hobbies', value: 'swimming' },
+];
+
+var objects = <a href="#!/api/Ext.Object-method-toQueryObjects" rel="Ext.Object-method-toQueryObjects" class="docClass">Ext.Object.toQueryObjects</a>('dateOfBirth', {
+    day: 3,
+    month: 8,
+    year: 1987,
+    extra: {
+        hour: 4
+        minute: 30
+    }
+}, true); // Recursive
+
+// objects then equals:
+[
+    { name: 'dateOfBirth[day]', value: 3 },
+    { name: 'dateOfBirth[month]', value: 8 },
+    { name: 'dateOfBirth[year]', value: 1987 },
+    { name: 'dateOfBirth[extra][hour]', value: 4 },
+    { name: 'dateOfBirth[extra][minute]', value: 30 },
+];
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'>
+</div></li><li><span class='pre'>value</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>recursive</span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-toQueryString' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.Object'>Ext.Object</span><br/><a href='source/Object2.html#Ext-Object-method-toQueryString' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Object-method-toQueryString' class='name expandable'>toQueryString</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object, [<a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a> recursive]</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Takes an object and converts it to an encoded query string
+
+
+Non-recursive:
+
+  Ext.Object.toQueryString({foo: 1, bar:...</div><div class='long'><p>Takes an object and converts it to an encoded query string</p>
+
+<ul>
+<li><p>Non-recursive:</p>
+
+<p>  <a href="#!/api/Ext.Object-method-toQueryString" rel="Ext.Object-method-toQueryString" class="docClass">Ext.Object.toQueryString</a>({foo: 1, bar: 2}); // returns "foo=1&amp;bar=2"
+  <a href="#!/api/Ext.Object-method-toQueryString" rel="Ext.Object-method-toQueryString" class="docClass">Ext.Object.toQueryString</a>({foo: null, bar: 2}); // returns "foo=&amp;bar=2"
+  <a href="#!/api/Ext.Object-method-toQueryString" rel="Ext.Object-method-toQueryString" class="docClass">Ext.Object.toQueryString</a>({'some price': '$300'}); // returns "some%20price=%24300"
+  <a href="#!/api/Ext.Object-method-toQueryString" rel="Ext.Object-method-toQueryString" class="docClass">Ext.Object.toQueryString</a>({date: new Date(2011, 0, 1)}); // returns "date=%222011-01-01T00%3A00%3A00%22"
+  <a href="#!/api/Ext.Object-method-toQueryString" rel="Ext.Object-method-toQueryString" class="docClass">Ext.Object.toQueryString</a>({colors: ['red', 'green', 'blue']}); // returns "colors=red&amp;colors=green&amp;colors=blue"</p></li>
+<li><p>Recursive:</p>
+
+<p>  <a href="#!/api/Ext.Object-method-toQueryString" rel="Ext.Object-method-toQueryString" class="docClass">Ext.Object.toQueryString</a>({</p>
+
+<pre><code>  username: 'Jacky',
+  dateOfBirth: {
+      day: 1,
+      month: 2,
+      year: 1911
+  },
+  hobbies: ['coding', 'eating', 'sleeping', ['nested', 'stuff']]
+</code></pre>
+
+  }, true); // returns the following string (broken down and url-decoded for ease of reading purpose):
+
+<pre><code>        // username=Jacky
+        //    &amp;dateOfBirth[day]=1&amp;dateOfBirth[month]=2&amp;dateOfBirth[year]=1911
+        //    &amp;hobbies[0]=coding&amp;hobbies[1]=eating&amp;hobbies[2]=sleeping&amp;hobbies[3][0]=nested&amp;hobbies[3][1]=stuff
+</code></pre></li>
+</ul>
+
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The object to encode</p>
+</div></li><li><span class='pre'>recursive</span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a> (optional)<div class='sub-desc'><p>Whether or not to interpret the object in recursive format.
+(PHP / Ruby on Rails servers and similar). Defaults to false</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>queryString</p>
+</div></li></ul></div></div></div></div></div></div></div>

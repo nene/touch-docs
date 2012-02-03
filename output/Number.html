@@ -1,0 +1,264 @@
+<div><pre class="hierarchy"><h4>Files</h4><div class='dependency'><a href='source/Number.html#Number' target='_blank'>Number.js</a></div></pre><div class='doc-contents'><p>Creates a wrapper object to allow you to work with numerical values.</p>
+
+<p>The primary uses for the <code>Number</code> object are:</p>
+
+<p>If the argument cannot be converted into a number, it returns <code>NaN</code>.</p>
+
+<p>In a non-constructor context (i.e., without the <code>new</code> operator), <code>Number</code> can
+be used to perform a type conversion.</p>
+
+<h1>Using the <code>Number</code> object to assign values to numeric variables</h1>
+
+<p>The following example uses the <code>Number</code> object's properties to assign values to
+several numeric variables:</p>
+
+<pre><code>biggestNum = Number.MAX_VALUE;
+smallestNum = Number.MIN_VALUE;
+infiniteNum = Number.POSITIVE_INFINITY;
+negInfiniteNum = Number.NEGATIVE_INFINITY;
+notANum = <a href="#!/api/Number-static-property-NaN" rel="Number-static-property-NaN" class="docClass">Number.NaN</a>;
+</code></pre>
+
+<h1>Using <code>Number</code> to convert a <code>Date</code> object</h1>
+
+<p>The following example converts the <code>Date</code> object to a numerical value using
+<code>Number</code> as a function:</p>
+
+<pre><code>var d = new Date("December 17, 1995 03:24:00");
+print(Number(d));
+</code></pre>
+
+<p>This displays "819199440000".</p>
+
+<p>The following example converts the Date object to a numerical value using
+<code>Number</code> as a function:</p>
+
+<div class="notice">
+Documentation for this class comes from <a href="https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Number">MDN</a>
+and is available under <a href="http://creativecommons.org/licenses/by-sa/2.0/">Creative Commons: Attribution-Sharealike license</a>.
+</div>
+
+</div><div class='members'><div class='members-section'><h3 class='members-title icon-property'>Properties</h3><div class='subsection'><div class='definedBy'>Defined By</div><h4 class='members-subtitle'>Instance Properties</h3><div id='property-NEGATIVE_INFINITY' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-property-NEGATIVE_INFINITY' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-property-NEGATIVE_INFINITY' class='name expandable'>NEGATIVE_INFINITY</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span></div><div class='description'><div class='short'>Special value representing negative infinity; returned on overflow. ...</div><div class='long'><p>Special value representing negative infinity; returned on overflow.</p>
+
+<p>The value of <code>Number.NEGATIVE_INFINITY</code> is the same as the negative value of the global object's
+Infinity property.</p>
+
+<p>This value behaves slightly differently than mathematical infinity:</p>
+
+<ul>
+<li>Any positive value, including POSITIVE_INFINITY, multiplied by NEGATIVE_INFINITY is NEGATIVE_INFINITY.</li>
+<li>Any negative value, including NEGATIVE_INFINITY, multiplied by NEGATIVE_INFINITY is
+POSITIVE_INFINITY.</li>
+<li>Zero multiplied by NEGATIVE_INFINITY is NaN.</li>
+<li>NaN multiplied by NEGATIVE_INFINITY is NaN.</li>
+<li>NEGATIVE_INFINITY, divided by any negative value except NEGATIVE_INFINITY, is
+POSITIVE_INFINITY.</li>
+<li>NEGATIVE_INFINITY, divided by any positive value except POSITIVE_INFINITY, is
+NEGATIVE_INFINITY.</li>
+<li>NEGATIVE_INFINITY, divided by either NEGATIVE_INFINITY or POSITIVE_INFINITY, is NaN.</li>
+<li>Any number divided by NEGATIVE_INFINITY is Zero.</li>
+</ul>
+
+
+<p>Several JavaScript methods (such as the <code>Number</code> constructor, <code>parseFloat</code>, and <code>parseInt</code>) return
+<code>NaN</code> if the value specified in the parameter is significantly lower than <code>Number.MIN_VALUE</code>.</p>
+
+<p>You might use the <code>Number.NEGATIVE_INFINITY</code> property to indicate an error condition that returns a
+finite number in case of success. Note, however, that <code>isFinite</code> would be more appropriate in such
+a case.</p>
+
+<p>In the following example, the variable smallNumber is assigned a value that is smaller than the
+minimum value. When the <code>if</code> statement executes, <code>smallNumber</code> has the value <code>"-Infinity"</code>, so
+<code>smallNumber</code> is set to a more manageable value before continuing.</p>
+
+<pre><code>var smallNumber = (-Number.MAX_VALUE) * 2
+if (smallNumber == Number.NEGATIVE_INFINITY) {
+    smallNumber = returnFinite();
+}
+</code></pre>
+</div></div></div><div id='property-POSITIVE_INFINITY' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-property-POSITIVE_INFINITY' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-property-POSITIVE_INFINITY' class='name expandable'>POSITIVE_INFINITY</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span></div><div class='description'><div class='short'>Special value representing infinity; returned on overflow. ...</div><div class='long'><p>Special value representing infinity; returned on overflow.</p>
+
+<p>The value of <code>Number.POSITIVE_INFINITY</code> is the same as the value of the global object's Infinity
+property.</p>
+
+<p>This value behaves slightly differently than mathematical infinity:</p>
+
+<ul>
+<li>Any positive value, including POSITIVE_INFINITY, multiplied by POSITIVE_INFINITY is
+POSITIVE_INFINITY.</li>
+<li>Any negative value, including NEGATIVE_INFINITY, multiplied by POSITIVE_INFINITY is
+NEGATIVE_INFINITY.</li>
+<li>Zero multiplied by POSITIVE_INFINITY is NaN.</li>
+<li>NaN multiplied by POSITIVE_INFINITY is NaN.</li>
+<li>POSITIVE_INFINITY, divided by any negative value except NEGATIVE_INFINITY, is
+NEGATIVE_INFINITY.</li>
+<li>POSITIVE_INFINITY, divided by any positive value except POSITIVE_INFINITY, is
+POSITIVE_INFINITY.</li>
+<li>POSITIVE_INFINITY, divided by either NEGATIVE_INFINITY or POSITIVE_INFINITY, is NaN.</li>
+<li>Any number divided by POSITIVE_INFINITY is Zero.</li>
+</ul>
+
+
+<p>Several JavaScript methods (such as the <code>Number</code> constructor, <code>parseFloat</code>, and <code>parseInt</code>) return
+<code>NaN</code> if the value specified in the parameter is significantly higher than <code>Number.MAX_VALUE</code>.</p>
+
+<p>You might use the <code>Number.POSITIVE_INFINITY</code> property to indicate an error condition that returns a
+finite number in case of success. Note, however, that <code>isFinite</code> would be more appropriate in such
+a case.</p>
+
+<p>In the following example, the variable <code>bigNumber</code> is assigned a value that is larger than the
+maximum value. When the if statement executes, <code>bigNumber</code> has the value "Infinity", so <code>bigNumber</code>
+is set to a more manageable value before continuing.</p>
+
+<pre><code>var bigNumber = Number.MAX_VALUE * 2
+if (bigNumber == Number.POSITIVE_INFINITY) {
+    bigNumber = returnFinite();
+}
+</code></pre>
+</div></div></div></div><div class='subsection'><div class='definedBy'>Defined By</div><h4 class='members-subtitle'>Static Properties</h3><div id='static-property-MAX_VALUE' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-static-property-MAX_VALUE' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-static-property-MAX_VALUE' class='name expandable'>MAX_VALUE</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><strong class='static signature'>static</strong></div><div class='description'><div class='short'>The largest positive representable number. ...</div><div class='long'><p>The largest positive representable number. The largest negative representable
+number is <code>-MAX_VALUE</code>.</p>
+
+<p>The <code>MAX_VALUE</code> property has a value of approximately 1.79E+308. Values larger than <code>MAX_VALUE</code> are
+represented as <code>"Infinity"</code>.</p>
+
+<p>Because <code>MAX_VALUE</code> is a static property of <code>Number</code>, you always use it as <code>Number.MAX_VALUE</code>,
+rather than as a property of a <code>Number</code> object you created.</p>
+
+<p>The following code multiplies two numeric values. If the result is less than or equal to
+<code>MAX_VALUE</code>, the <code>func1</code> function is called; otherwise, the <code>func2</code> function is called.</p>
+
+<pre><code>if (num1 * num2 &lt;= Number.MAX_VALUE)
+    func1();
+else
+    func2();
+</code></pre>
+</div></div></div><div id='static-property-MIN_VALUE' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-static-property-MIN_VALUE' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-static-property-MIN_VALUE' class='name expandable'>MIN_VALUE</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><strong class='static signature'>static</strong></div><div class='description'><div class='short'>The smallest positive representable number -- that is, the positive number
+closest to zero (without actually being ze...</div><div class='long'><p>The smallest positive representable number -- that is, the positive number
+closest to zero (without actually being zero). The smallest negative
+representable number is <code>-MIN_VALUE</code>.</p>
+
+<p>The <code>MIN_VALUE</code> property is the number closest to 0, not the most negative number, that JavaScript
+can represent.</p>
+
+<p><code>MIN_VALUE</code> has a value of approximately 5e-324. Values smaller than <code>MIN_VALUE</code> ("underflow
+values") are converted to 0.</p>
+
+<p>Because <code>MIN_VALUE</code> is a static property of <code>Number</code>, you always use it as <code>Number.MIN_VALUE</code>,
+rather than as a property of a <code>Number</code> object you created.</p>
+
+<p>The following code divides two numeric values. If the result is greater than or equal to
+<code>MIN_VALUE</code>, the <code>func1</code> function is called; otherwise, the <code>func2</code> function is called.</p>
+
+<pre><code>if (num1 / num2 &gt;= Number.MIN_VALUE)
+    func1()
+else
+    func2()
+</code></pre>
+</div></div></div><div id='static-property-NaN' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-static-property-NaN' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-static-property-NaN' class='name not-expandable'>NaN</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><strong class='static signature'>static</strong></div><div class='description'><div class='short'><p>Special "not a number" value.</p>
+</div><div class='long'><p>Special "not a number" value.</p>
+</div></div></div></div></div><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-method'>Methods</h3><div class='subsection'><div id='method-constructor' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-constructor' target='_blank' class='view-source'>view source</a></div><strong class='new-keyword'>new</strong><a href='#!/api/Number-method-constructor' class='name expandable'>Number</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> value</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Creates new Number object. ...</div><div class='long'><p>Creates new Number object.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>value</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The numeric value of the object being created.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-toExponential' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-toExponential' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-method-toExponential' class='name expandable'>toExponential</a>( <span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a> fractionDigits</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Returns a string representing the number in exponential notation. ...</div><div class='long'><p>Returns a string representing the number in exponential notation.</p>
+
+<p>A string representing a <code>Number</code> object in exponential notation with one digit before the decimal
+point, rounded to <code>fractionDigits</code> digits after the decimal point. If the <code>fractionDigits</code> argument
+is omitted, the number of digits after the decimal point defaults to the number of digits necessary
+to represent the value uniquely.</p>
+
+<p>If you use the <code>toExponential</code> method for a numeric literal and the numeric literal has no exponent
+and no decimal point, leave a space before the dot that precedes the method call to prevent the dot
+from being interpreted as a decimal point.</p>
+
+<p>If a number has more digits that requested by the <code>fractionDigits</code> parameter, the number is rounded
+to the nearest number represented by <code>fractionDigits</code> digits. See the discussion of rounding in the
+description of the <code>toFixed</code> method, which also applies to <code>toExponential</code>.</p>
+
+<pre><code>var num=77.1234;
+
+alert("num.toExponential() is " + num.toExponential()); //displays 7.71234e+1
+
+alert("num.toExponential(4) is " + num.toExponential(4)); //displays 7.7123e+1
+
+alert("num.toExponential(2) is " + num.toExponential(2)); //displays 7.71e+1
+
+alert("77.1234.toExponential() is " + 77.1234.toExponential()); //displays 7.71234e+1
+
+alert("77 .toExponential() is " + 77 .toExponential()); //displays 7.7e+1
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>fractionDigits</span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a><div class='sub-desc'><p>An integer specifying the number of digits after the decimal
+point. Defaults to as many digits as necessary to specify the number.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>Exponential notation of number.</p>
+</div></li></ul></div></div></div><div id='method-toFixed' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-toFixed' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-method-toFixed' class='name expandable'>toFixed</a>( <span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a> digits</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Returns a string representing the number in fixed-point notation. ...</div><div class='long'><p>Returns a string representing the number in fixed-point notation.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>digits</span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a><div class='sub-desc'><p>The number of digits to appear after the decimal point; this may be a
+value between 0 and 20, inclusive, and implementations may optionally support a larger range of
+values. If this argument is omitted, it is treated as 0.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>A string representation of <code>number</code> that does not use
+exponential notation and has exactly <code>digits</code> digits after the decimal place.
+The number is rounded if necessary, and the fractional part is padded with
+zeros if necessary so that it has the specified length. If <code>number</code> is greater
+than 1e+21, this method simply calls <code><a href="#!/api/Number-method-toString" rel="Number-method-toString" class="docClass">Number.toString</a>()</code> and returns a string
+in exponential notation.</p>
+</div></li></ul></div></div></div><div id='method-toLocaleString' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-toLocaleString' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-method-toLocaleString' class='name expandable'>toLocaleString</a>( <span class='pre'></span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Returns a human readable string representing the number using the locale of the
+environment. ...</div><div class='long'><p>Returns a human readable string representing the number using the locale of the
+environment. Overrides the <code>Object.prototype.toLocaleString</code> method.</p>
+
+<p>This method available to numbers will convert the number into a string which is suitable for
+presentation in the given locale.</p>
+
+<pre><code>var number = 3500
+console.log(number.toLocaleString()); // Displays "3,500" in English locale
+</code></pre>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>String representing the number.</p>
+</div></li></ul></div></div></div><div id='method-toPrecision' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-toPrecision' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-method-toPrecision' class='name expandable'>toPrecision</a>( <span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a> precision</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Returns a string representing the number to a specified precision in fixed-
+point or exponential notation. ...</div><div class='long'><p>Returns a string representing the number to a specified precision in fixed-
+point or exponential notation.</p>
+
+<p>A string representing a <code>Number</code> object in fixed-point or
+exponential notation rounded to precision significant digits. See the
+discussion of rounding in the description of the <code>toFixed</code> method, which also
+applies to <code>toPrecision</code>.</p>
+
+<p>If the precision argument is omitted, behaves as <a href="#!/api/Number-method-toString" rel="Number-method-toString" class="docClass">Number.toString</a>. If it is a
+non-integer value, it is rounded to the nearest integer. After rounding, if
+that value is not between 1 and 100 (inclusive), a RangeError is thrown.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>precision</span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a><div class='sub-desc'><p>An integer specifying the number of significant digits.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>String that represents <code>Number</code> object.</p>
+</div></li></ul></div></div></div><div id='method-toString' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-toString' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-method-toString' class='name expandable'>toString</a>( <span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a> radix</span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Returns a string representing the specified object. ...</div><div class='long'><p>Returns a string representing the specified object. Overrides the
+<code>Object.prototype.toString</code> method.</p>
+
+<p>The <code>Number</code> object overrides the <code>toString</code> method of the <code>Object</code> object; it does not inherit
+<code><a href="#!/api/Object-method-toString" rel="Object-method-toString" class="docClass">Object.toString</a></code>. For <code>Number</code> objects, the toString method returns a string representation of the
+object in the specified radix.</p>
+
+<p>The <code>toString</code> method parses its first argument, and attempts to return a string representation in
+the specified radix (base). For radixes above 10, the letters of the alphabet indicate numerals
+greater than 9. For example, for hexadecimal numbers (base 16), A through F are used.</p>
+
+<p>If <code>toString</code> is given a radix not between 2 and 36, an exception is thrown.</p>
+
+<p>If the radix is not specified, JavaScript assumes the preferred radix is 10.</p>
+
+<pre><code>var count = 10;
+print(count.toString());   // displays "10"
+print((17).toString());    // displays "17"
+
+var x = 7;
+print(x.toString(2));      // displays "111"
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>radix</span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a><div class='sub-desc'><p>An integer between 2 and 36 specifying the base to use for representing
+numeric values.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>The number represented as a string.</p>
+</div></li></ul></div></div></div><div id='method-valueOf' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Number'>Number</span><br/><a href='source/Number.html#Number-method-valueOf' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Number-method-valueOf' class='name expandable'>valueOf</a>( <span class='pre'></span> ) : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></div><div class='description'><div class='short'>Returns the primitive value of the specified object. ...</div><div class='long'><p>Returns the primitive value of the specified object. Overrides the
+<code>Object.prototype.valueOf</code> method.</p>
+
+<p>The <code>valueOf</code> method of <code>Number</code> returns the primitive value of a <code>Number</code> object as a number data
+type.</p>
+
+<p>This method is usually called internally by JavaScript and not explicitly in code.</p>
+
+<pre><code>var x = new Number();
+print(x.valueOf());     // prints "0"
+</code></pre>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a></span><div class='sub-desc'><p>The primitive value of the number.</p>
+</div></li></ul></div></div></div></div></div></div></div>

@@ -1,0 +1,627 @@
+<div><pre class="hierarchy"><h4>Hierarchy</h4><div class='subclass first-child'><a href='#!/api/Ext.Base' rel='Ext.Base' class='docClass'>Ext.Base</a><div class='subclass '><strong>Ext.data.Batch</strong></div></div><h4>Mixins</h4><div class='dependency'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='docClass'>Ext.mixin.Observable</a></div><h4>Files</h4><div class='dependency'><a href='source/Batch.html#Ext-data-Batch' target='_blank'>Batch.js</a></div></pre><div class='doc-contents'><p>Provides a mechanism to run one or more <a href="#!/api/Ext.data.Operation" rel="Ext.data.Operation" class="docClass">operations</a> in a given order. Fires the 'operationcomplete' event
+after the completion of each Operation, and the 'complete' event when all Operations have been successfully executed. Fires an 'exception'
+event if any of the Operations encounter an exception.</p>
+
+
+
+
+<p>Usually these are only used internally by <a href="#!/api/Ext.data.proxy.Proxy" rel="Ext.data.proxy.Proxy" class="docClass">Ext.data.proxy.Proxy</a> classes</p>
+
+</div><div class='members'><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-cfg'>Config options</h3><div class='subsection'><div id='cfg-autoStart' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-cfg-autoStart' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-cfg-autoStart' class='name expandable'>autoStart</a><span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span></div><div class='description'><div class='short'>true to immediately start processing the batch as soon as it is constructed (defaults to false) ...</div><div class='long'><p>true to immediately start processing the batch as soon as it is constructed (defaults to false)</p>
+<p>Defaults to: <code>false</code></p></div></div></div><div id='cfg-bubbleEvents' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-cfg-bubbleEvents' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-cfg-bubbleEvents' class='name expandable'>bubbleEvents</a><span> : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[]</span></div><div class='description'><div class='short'>The event name to bubble, or an Array of event names. ...</div><div class='long'><p>The event name to bubble, or an Array of event names.</p>
+<p>Defaults to: <code>null</code></p></div></div></div><div id='cfg-listeners' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-cfg-listeners' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-cfg-listeners' class='name expandable'>listeners</a><span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></span></div><div class='description'><div class='short'>A config object containing one or more event handlers to be added to this object during initialization. ...</div><div class='long'><p>A config object containing one or more event handlers to be added to this object during initialization. This
+should be a valid listeners config object as specified in the <a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">addListener</a> example for attaching
+multiple handlers at once.</p>
+<p>Defaults to: <code>null</code></p></div></div></div><div id='cfg-pauseOnException' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-cfg-pauseOnException' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-cfg-pauseOnException' class='name expandable'>pauseOnException</a><span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span></div><div class='description'><div class='short'>true to automatically pause the execution of the batch if any operation encounters an exception (defaults to true) ...</div><div class='long'><p>true to automatically pause the execution of the batch if any operation encounters an exception (defaults to true)</p>
+<p>Defaults to: <code>true</code></p></div></div></div><div id='cfg-proxy' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-cfg-proxy' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-cfg-proxy' class='name expandable'>proxy</a><span> : <a href="#!/api/Ext.data.proxy.Proxy" rel="Ext.data.proxy.Proxy" class="docClass">Ext.data.Proxy</a></span></div><div class='description'><div class='short'>The proxy this Batch belongs to. ...</div><div class='long'><p>The proxy this Batch belongs to. Used to make the requests for each operation in the Batch.</p>
+<p>Defaults to: <code>null</code></p></div></div></div></div></div><div class='members-section'><h3 class='members-title icon-property'>Properties</h3><div class='subsection'><div class='definedBy'>Defined By</div><h4 class='members-subtitle'>Instance Properties</h3><div id='property-current' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-property-current' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-property-current' class='name not-expandable'>current</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span></div><div class='description'><div class='short'><p>The index of the current operation being executed</p>
+</div><div class='long'><p>The index of the current operation being executed</p>
+</div></div></div><div id='property-hasException' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-property-hasException' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-property-hasException' class='name expandable'>hasException</a><span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span></div><div class='description'><div class='short'>True if this batch has encountered an exception. ...</div><div class='long'><p>True if this batch has encountered an exception. This is cleared at the start of each operation</p>
+<p>Defaults to: <code>false</code></p></div></div></div><div id='property-isComplete' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-property-isComplete' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-property-isComplete' class='name expandable'>isComplete</a><span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span></div><div class='description'><div class='short'>True if this batch has been executed completely ...</div><div class='long'><p>True if this batch has been executed completely</p>
+<p>Defaults to: <code>false</code></p></div></div></div><div id='property-isRunning' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-property-isRunning' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-property-isRunning' class='name expandable'>isRunning</a><span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span></div><div class='description'><div class='short'>True if the batch is currently running ...</div><div class='long'><p>True if the batch is currently running</p>
+<p>Defaults to: <code>false</code></p></div></div></div><div id='property-operations' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-property-operations' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-property-operations' class='name expandable'>operations</a><span> : <a href="#!/api/Ext.data.Operation" rel="Ext.data.Operation" class="docClass">Ext.data.Operation</a>[]</span></div><div class='description'><div class='short'>Ordered array of operations that will be executed by this batch ...</div><div class='long'><p>Ordered array of operations that will be executed by this batch</p>
+<p>Defaults to: <code>[]</code></p></div></div></div><div id='property-self' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-property-self' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-property-self' class='name expandable'>self</a><span> : <a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a></span><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Get the reference to the current class from which this object was instantiated. ...</div><div class='long'><p>Get the reference to the current class from which this object was instantiated. Unlike <a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">statics</a>,
+<code>this.self</code> is scope-dependent and it's meant to be used for dynamic inheritance. See <a href="#!/api/Ext.Base-method-statics" rel="Ext.Base-method-statics" class="docClass">statics</a>
+for a detailed comparison</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    statics: {
+        speciesName: 'Cat' // My.Cat.speciesName = 'Cat'
+    },
+
+    constructor: function() {
+        alert(this.self.speciesName); / dependentOL on 'this'
+    },
+
+    clone: function() {
+        return new this.self();
+    }
+});
+
+
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.SnowLeopard', {
+    extend: 'My.Cat',
+    statics: {
+        speciesName: 'Snow Leopard'         // My.SnowLeopard.speciesName = 'Snow Leopard'
+    }
+});
+
+var cat = new My.Cat();                     // alerts 'Cat'
+var snowLeopard = new My.SnowLeopard();     // alerts 'Snow Leopard'
+
+var clone = snowLeopard.clone();
+alert(<a href="#!/api/Ext-method-getClassName" rel="Ext-method-getClassName" class="docClass">Ext.getClassName</a>(clone));             // alerts 'My.SnowLeopard'
+</code></pre>
+</div></div></div><div id='property-total' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-property-total' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-property-total' class='name expandable'>total</a><span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a></span></div><div class='description'><div class='short'>The total number of operations in this batch. ...</div><div class='long'><p>The total number of operations in this batch. Read only</p>
+<p>Defaults to: <code>0</code></p></div></div></div></div><div class='subsection'><div class='definedBy'>Defined By</div><h4 class='members-subtitle'>Static Properties</h3><div id='static-property-S-onExtended' class='member first-child inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-property-S-onExtended' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-property-S-onExtended' class='name expandable'>$onExtended</a><span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a></span><strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<p>Defaults to: <code>[]</code></p></div></div></div></div></div><div class='members-section'><h3 class='members-title icon-method'>Methods</h3><div class='subsection'><div class='definedBy'>Defined By</div><h4 class='members-subtitle'>Instance Methods</h3><div id='method-constructor' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-method-constructor' target='_blank' class='view-source'>view source</a></div><strong class='new-keyword'>new</strong><a href='#!/api/Ext.data.Batch-method-constructor' class='name expandable'>Ext.data.Batch</a>( <span class='pre'>[<a href="#!/api/Object" rel="Object" class="docClass">Object</a> config]</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Creates new Batch object. ...</div><div class='long'><p>Creates new Batch object.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>config</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a> (optional)<div class='sub-desc'><p>Config object</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-add' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-method-add' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-method-add' class='name expandable'>add</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> operation</span> )</div><div class='description'><div class='short'>Adds a new operation to this batch ...</div><div class='long'><p>Adds a new operation to this batch</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>operation</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The <a href="#!/api/Ext.data.Operation" rel="Ext.data.Operation" class="docClass">Operation</a> object</p>
+</div></li></ul></div></div></div><div id='method-addListener' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-addListener' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-addListener' class='name expandable'>addListener</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> eventName, <a href="#!/api/Function" rel="Function" class="docClass">Function</a> fn, [<a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope], [<a href="#!/api/Object" rel="Object" class="docClass">Object</a> options]</span> )</div><div class='description'><div class='short'>Appends an event handler to this object. ...</div><div class='long'><p>Appends an event handler to this object.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>eventName</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The name of the event to listen for. May also be an object who's property names are
+event names.</p>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>The method the event invokes.  Will be called with arguments given to
+<a href="#!/api/Ext.mixin.Observable-method-fireEvent" rel="Ext.mixin.Observable-method-fireEvent" class="docClass">fireEvent</a> plus the <code>options</code> parameter described below.</p>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a> (optional)<div class='sub-desc'><p>The scope (<code>this</code> reference) in which the handler function is executed. <strong>If
+omitted, defaults to the object which fired the event.</strong></p>
+</div></li><li><span class='pre'>options</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a> (optional)<div class='sub-desc'><p>An object containing handler configuration.</p>
+
+<p>This object may contain any of the following properties:</p>
+
+<ul>
+<li><p><strong>scope</strong> : Object</p>
+
+<p>The scope (<code>this</code> reference) in which the handler function is executed. <strong>If omitted, defaults to the object
+which fired the event.</strong></p></li>
+<li><p><strong>delay</strong> : Number</p>
+
+<p>The number of milliseconds to delay the invocation of the handler after the event fires.</p></li>
+<li><p><strong>single</strong> : Boolean</p>
+
+<p>True to add a handler to handle just the next firing of the event, and then remove itself.</p></li>
+<li><p><strong>buffer</strong> : Number</p>
+
+<p>Causes the handler to be delayed by the specified number of milliseconds. If the event fires again within that
+time, the original handler is <em>not</em> invoked, but the new handler is scheduled in its place.</p></li>
+<li><p><strong>delegate</strong> : String</p>
+
+<p>Uses <a href="#!/api/Ext.ComponentQuery" rel="Ext.ComponentQuery" class="docClass">Ext.ComponentQuery</a> to delegate events to a specified query selector within this item.</p>
+
+<pre><code>// Create a container with a two children; a button and a toolbar
+var container = <a href="#!/api/Ext-method-create" rel="Ext-method-create" class="docClass">Ext.create</a>('<a href="#!/api/Ext.Container" rel="Ext.Container" class="docClass">Ext.Container</a>', {
+    items: [
+        {
+           xtype: 'toolbar',
+           docked: 'top',
+           title: 'My Toolbar'
+        },
+        {
+           xtype: 'button',
+           text: 'My Button'
+        }
+    ]
+});
+
+container.on({
+    // Ext.Buttons have an xtype of 'button', so we use that are a selector for our delegate
+    delegate: 'button',
+
+    tap: function() {
+        alert('Button tapped!');
+    }
+});
+</code></pre></li>
+</ul>
+
+
+<p><strong>Combining Options</strong></p>
+
+<p>Using the options argument, it is possible to combine different types of listeners:</p>
+
+<p>A delayed, one-time listener.</p>
+
+<pre><code>container.on('tap', this.handleTap, this, {
+    single: true,
+    delay: 100
+});
+</code></pre>
+
+<p><strong>Attaching multiple handlers in 1 call</strong></p>
+
+<p>The method also allows for a single argument to be passed which is a config object containing properties which
+specify multiple events. For example:</p>
+
+<pre><code>container.on({
+    tap  : this.onTap,
+    swipe: this.onSwipe,
+
+    scope: this // Important. Ensure "this" is correct during handler execution
+});
+</code></pre>
+
+<p>One can also specify options for each event handler separately:</p>
+
+<pre><code>container.on({
+    tap  : { fn: this.onTap, scope: this, single: true },
+    swipe: { fn: button.onSwipe, scope: button }
+});
+</code></pre>
+</div></li></ul></div></div></div><div id='method-callOverridden' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-callOverridden' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-callOverridden' class='name expandable'>callOverridden</a>( <span class='pre'><a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments args</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='deprecated signature'>deprecated</strong><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Call the original method that was previously overridden with override
+
+Ext.define('My.Cat', {
+    constructor: functi...</div><div class='long'><p>Call the original method that was previously overridden with <a href="#!/api/Ext.Base-static-method-override" rel="Ext.Base-static-method-override" class="docClass">override</a></p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    constructor: function() {
+        alert("I'm a cat!");
+    }
+});
+
+My.Cat.override({
+    constructor: function() {
+        alert("I'm going to be a cat!");
+
+        var instance = this.callOverridden();
+
+        alert("Meeeeoooowwww");
+
+        return instance;
+    }
+});
+
+var kitty = new My.Cat(); // alerts "I'm going to be a cat!"
+                          // alerts "I'm a cat!"
+                          // alerts "Meeeeoooowwww"
+</code></pre>
+        <div class='signature-box deprecated'>
+        <p>This method has been <strong>deprecated</strong> </p>
+        <p>as of 4.1. Use <a href="#!/api/Ext.Base-method-callParent" rel="Ext.Base-method-callParent" class="docClass">callParent</a> instead.</p>
+
+        </div>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments<div class='sub-desc'><p>The arguments, either an array or the <code>arguments</code> object
+from the current method, for example: <code>this.callOverridden(arguments)</code></p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>Returns the result of calling the overridden method</p>
+</div></li></ul></div></div></div><div id='method-callParent' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-callParent' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-callParent' class='name expandable'>callParent</a>( <span class='pre'><a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments args</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Call the "parent" method of the current method. ...</div><div class='long'><p>Call the "parent" method of the current method. That is the method previously
+overridden by derivation or by an override (see <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>).</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Base', {
+     constructor: function (x) {
+         this.x = x;
+     },
+
+     statics: {
+         method: function (x) {
+             return x;
+         }
+     }
+ });
+
+ <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Derived', {
+     extend: 'My.Base',
+
+     constructor: function () {
+         this.callParent([21]);
+     }
+ });
+
+ var obj = new My.Derived();
+
+ alert(obj.x);  // alerts 21
+</code></pre>
+
+<p>This can be used with an override as follows:</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.DerivedOverride', {
+     override: 'My.Derived',
+
+     constructor: function (x) {
+         this.callParent([x*2]); // calls original My.Derived constructor
+     }
+ });
+
+ var obj = new My.Derived();
+
+ alert(obj.x);  // now alerts 42
+</code></pre>
+
+<p>This also works with static methods.</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Derived2', {
+     extend: 'My.Base',
+
+     statics: {
+         method: function (x) {
+             return this.callParent([x*2]); // calls My.Base.method
+         }
+     }
+ });
+
+ alert(My.Base.method(10);     // alerts 10
+ alert(My.Derived2.method(10); // alerts 20
+</code></pre>
+
+<p>Lastly, it also works with overridden static methods.</p>
+
+<pre><code> <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Derived2Override', {
+     override: 'My.Derived2',
+
+     statics: {
+         method: function (x) {
+             return this.callParent([x*2]); // calls My.Derived2.method
+         }
+     }
+ });
+
+ alert(My.Derived2.method(10); // now alerts 40
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a>/Arguments<div class='sub-desc'><p>The arguments, either an array or the <code>arguments</code> object
+from the current method, for example: <code>this.callParent(arguments)</code></p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>Returns the result of calling the parent method</p>
+</div></li></ul></div></div></div><div id='method-changeListener' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-changeListener' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-changeListener' class='name expandable'>changeListener</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> operation, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> eventName, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> fn, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> options, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> order</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>operation</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>eventName</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>options</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>order</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-clearListeners' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-clearListeners' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-clearListeners' class='name expandable'>clearListeners</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>Removes all listeners for this object. ...</div><div class='long'><p>Removes all listeners for this object.</p>
+</div></div></div><div id='method-createEventRelayer' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-createEventRelayer' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-createEventRelayer' class='name expandable'>createEventRelayer</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> newName</span> ) : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><strong class='private signature'>private</strong></div><div class='description'><div class='short'>Creates an event handling function which refires the event from this object as the passed event name. ...</div><div class='long'><p>Creates an event handling function which refires the event from this object as the passed event name.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>newName</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Function" rel="Function" class="docClass">Function</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-destroy' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-destroy' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-destroy' class='name expandable'>destroy</a>( <span class='pre'></span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<p>Overrides: <a href='#!/api/Ext.Component-method-destroy' rel='Ext.Component-method-destroy' class='docClass'>Ext.Component.destroy</a></p></div></div></div><div id='method-doAddListener' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-doAddListener' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-doAddListener' class='name expandable'>doAddListener</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> fn, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> options</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>options</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-enableBubble' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-enableBubble' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-enableBubble' class='name expandable'>enableBubble</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[] events</span> )</div><div class='description'><div class='short'>Enables events fired by this Observable to bubble up an owner hierarchy by calling this.getBubbleTarget() if
+present. ...</div><div class='long'><p>Enables events fired by this Observable to bubble up an owner hierarchy by calling <code>this.getBubbleTarget()</code> if
+present. There is no implementation in the Observable base class.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>events</span> : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[]<div class='sub-desc'><p>The event name to bubble, or an Array of event names.</p>
+</div></li></ul></div></div></div><div id='method-fireAction' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-fireAction' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-fireAction' class='name expandable'>fireAction</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> eventName, <a href="#!/api/Array" rel="Array" class="docClass">Array</a> args, <a href="#!/api/Function" rel="Function" class="docClass">Function</a> fn, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope</span> )</div><div class='description'><div class='short'>Fires the specified event with the passed parameters and execute a function (action)
+at the end if there are no liste...</div><div class='long'><p>Fires the specified event with the passed parameters and execute a function (action)
+at the end if there are no listeners that return false.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>eventName</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The name of the event to fire.</p>
+</div></li><li><span class='pre'>args</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a><div class='sub-desc'><p>Arguments to pass to handers</p>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>Action</p>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>scope of fn</p>
+</div></li></ul></div></div></div><div id='method-fireEvent' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-fireEvent' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-fireEvent' class='name expandable'>fireEvent</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> eventName, <a href="#!/api/Object" rel="Object" class="docClass">Object</a>... args</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>Fires the specified event with the passed parameters (minus the event name, plus the options object passed
+to addList...</div><div class='long'><p>Fires the specified event with the passed parameters (minus the event name, plus the <code>options</code> object passed
+to <a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">addListener</a>).</p>
+
+<p>An event may be set to bubble up an Observable parent hierarchy by calling <a href="#!/api/Ext.mixin.Observable-method-enableBubble" rel="Ext.mixin.Observable-method-enableBubble" class="docClass">enableBubble</a>.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>eventName</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The name of the event to fire.</p>
+</div></li><li><span class='pre'>args</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a>...<div class='sub-desc'><p>Variable number of parameters are passed to handlers.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>returns false if any of the handlers return false otherwise it returns true.</p>
+</div></li></ul></div></div></div><div id='method-getBubbleEvents' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-cfg-bubbleEvents' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-getBubbleEvents' class='name expandable'>getBubbleEvents</a>( <span class='pre'></span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[]</div><div class='description'><div class='short'>Returns the value of bubbleEvents. ...</div><div class='long'><p>Returns the value of <a href="#!/api/Ext.mixin.Observable-cfg-bubbleEvents" rel="Ext.mixin.Observable-cfg-bubbleEvents" class="docClass">bubbleEvents</a>.</p>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[]</span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-getConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-getConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-getConfig' class='name expandable'>getConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-getCurrentConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-getCurrentConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-getCurrentConfig' class='name expandable'>getCurrentConfig</a>( <span class='pre'></span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+</div></div></div><div id='method-getId' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Identifiable' rel='Ext.mixin.Identifiable' class='defined-in docClass'>Ext.mixin.Identifiable</a><br/><a href='source/Identifiable.html#Ext-mixin-Identifiable-method-getId' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Identifiable-method-getId' class='name expandable'>getId</a>( <span class='pre'></span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a></div><div class='description'><div class='short'>Retrieves the id of this component. ...</div><div class='long'><p>Retrieves the id of this component. Will autogenerate an id if one has not already been set.</p>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>id</p>
+</div></li></ul></div></div></div><div id='method-getInitialConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-getInitialConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-getInitialConfig' class='name expandable'>getInitialConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name</span> )</div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-getListeners' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-cfg-listeners' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-getListeners' class='name expandable'>getListeners</a>( <span class='pre'></span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a></div><div class='description'><div class='short'>Returns the value of listeners. ...</div><div class='long'><p>Returns the value of <a href="#!/api/Ext.mixin.Observable-cfg-listeners" rel="Ext.mixin.Observable-cfg-listeners" class="docClass">listeners</a>.</p>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-hasConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-hasConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-hasConfig' class='name expandable'>hasConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-hasListener' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-hasListener' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-hasListener' class='name expandable'>hasListener</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> eventName</span> ) : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></div><div class='description'><div class='short'>Checks to see if this object has any listeners for a specified event ...</div><div class='long'><p>Checks to see if this object has any listeners for a specified event</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>eventName</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The name of the event to check for</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a></span><div class='sub-desc'><p>True if the event is being listened for, else false</p>
+</div></li></ul></div></div></div><div id='method-initConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-initConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-initConfig' class='name expandable'>initConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> instanceConfig</span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Initialize configuration for this class. ...</div><div class='long'><p>Initialize configuration for this class. a typical example:</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.awesome.Class', {
+    // The default config
+    config: {
+        name: 'Awesome',
+        isAwesome: true
+    },
+
+    constructor: function(config) {
+        this.initConfig(config);
+    }
+});
+
+var awesome = new My.awesome.Class({
+    name: 'Super Awesome'
+});
+
+alert(awesome.getName()); // 'Super Awesome'
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>instanceConfig</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>mixins The mixin prototypes as key - value pairs</p>
+</div></li></ul></div></div></div><div id='method-onConfigUpdate' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-onConfigUpdate' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-onConfigUpdate' class='name expandable'>onConfigUpdate</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> names, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> callback, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>names</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>callback</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-pause' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-method-pause' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-method-pause' class='name expandable'>pause</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>Pauses execution of the batch, but does not cancel the current operation ...</div><div class='long'><p>Pauses execution of the batch, but does not cancel the current operation</p>
+</div></div></div><div id='method-relayEvent' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-relayEvent' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-relayEvent' class='name expandable'>relayEvent</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> args, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> fn</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-relayEvents' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-relayEvents' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-relayEvents' class='name expandable'>relayEvents</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> object, <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/Array" rel="Array" class="docClass">Array</a>/<a href="#!/api/Object" rel="Object" class="docClass">Object</a> events</span> )</div><div class='description'><div class='short'>Relays selected events from the specified Observable as if the events were fired by this. ...</div><div class='long'><p>Relays selected events from the specified Observable as if the events were fired by <code><b>this</b></code>.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>object</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The Observable whose events this object is to relay.</p>
+</div></li><li><span class='pre'>events</span> : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/Array" rel="Array" class="docClass">Array</a>/<a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>Array of event names to relay.</p>
+</div></li></ul></div></div></div><div id='method-removeListener' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-removeListener' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-removeListener' class='name expandable'>removeListener</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a> eventName, <a href="#!/api/Function" rel="Function" class="docClass">Function</a> fn, [<a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope]</span> )</div><div class='description'><div class='short'>Removes an event handler. ...</div><div class='long'><p>Removes an event handler.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>eventName</span> : <a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The type of event the handler was associated with.</p>
+</div></li><li><span class='pre'>fn</span> : <a href="#!/api/Function" rel="Function" class="docClass">Function</a><div class='sub-desc'><p>The handler to remove. <strong>This must be a reference to the function passed into the
+<a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">addListener</a> call.</strong></p>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a> (optional)<div class='sub-desc'><p>The scope originally specified for the handler. It must be the same as the
+scope argument specified in the original call to <a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">addListener</a> or the listener will not be removed.</p>
+</div></li></ul></div></div></div><div id='method-resumeEvents' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-resumeEvents' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-resumeEvents' class='name expandable'>resumeEvents</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>Resumes firing events (see suspendEvents). ...</div><div class='long'><p>Resumes firing events (see <a href="#!/api/Ext.mixin.Observable-method-suspendEvents" rel="Ext.mixin.Observable-method-suspendEvents" class="docClass">suspendEvents</a>).</p>
+
+<p>If events were suspended using the <code>queueSuspended</code> parameter, then all events fired
+during event suspension will be sent to any listeners now.</p>
+</div></div></div><div id='method-runNextOperation' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-method-runNextOperation' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-method-runNextOperation' class='name expandable'>runNextOperation</a>( <span class='pre'></span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'>Runs the next operation, relative to this.current. ...</div><div class='long'><p>Runs the next operation, relative to this.current.</p>
+</div></div></div><div id='method-runOperation' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-method-runOperation' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-method-runOperation' class='name expandable'>runOperation</a>( <span class='pre'><a href="#!/api/Number" rel="Number" class="docClass">Number</a> index</span> )</div><div class='description'><div class='short'>Executes a operation by its numeric index ...</div><div class='long'><p>Executes a operation by its numeric index</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>index</span> : <a href="#!/api/Number" rel="Number" class="docClass">Number</a><div class='sub-desc'><p>The operation index to run</p>
+</div></li></ul></div></div></div><div id='method-setBubbleEvents' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-cfg-bubbleEvents' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-setBubbleEvents' class='name expandable'>setBubbleEvents</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[] bubbleEvents</span> )</div><div class='description'><div class='short'>Sets the value of bubbleEvents. ...</div><div class='long'><p>Sets the value of <a href="#!/api/Ext.mixin.Observable-cfg-bubbleEvents" rel="Ext.mixin.Observable-cfg-bubbleEvents" class="docClass">bubbleEvents</a>.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>bubbleEvents</span> : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/String" rel="String" class="docClass">String</a>[]<div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-setConfig' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-setConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-setConfig' class='name expandable'>setConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> config, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> applyIfNotSet</span> )<strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>config</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>applyIfNotSet</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-setListeners' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-cfg-listeners' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-setListeners' class='name expandable'>setListeners</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> listeners</span> )</div><div class='description'><div class='short'>Sets the value of listeners. ...</div><div class='long'><p>Sets the value of <a href="#!/api/Ext.mixin.Observable-cfg-listeners" rel="Ext.mixin.Observable-cfg-listeners" class="docClass">listeners</a>.</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>listeners</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-start' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-method-start' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-method-start' class='name expandable'>start</a>( <span class='pre'></span> )</div><div class='description'><div class='short'>Kicks off the execution of the batch, continuing from the next operation if the previous
+operation encountered an exc...</div><div class='long'><p>Kicks off the execution of the batch, continuing from the next operation if the previous
+operation encountered an exception, or if execution was paused</p>
+</div></div></div><div id='method-statics' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-method-statics' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-method-statics' class='name expandable'>statics</a>( <span class='pre'></span> ) : <a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a><strong class='protected signature'>protected</strong></div><div class='description'><div class='short'>Get the reference to the class from which this object was instantiated. ...</div><div class='long'><p>Get the reference to the class from which this object was instantiated. Note that unlike <a href="#!/api/Ext.Base-property-self" rel="Ext.Base-property-self" class="docClass">self</a>,
+<code>this.statics()</code> is scope-independent and it always returns the class from which it was called, regardless of what
+<code>this</code> points to during run-time</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    statics: {
+        totalCreated: 0,
+        speciesName: 'Cat' // My.Cat.speciesName = 'Cat'
+    },
+
+    constructor: function() {
+        var statics = this.statics();
+
+        alert(statics.speciesName);     // always equals to 'Cat' no matter what 'this' refers to
+                                        // equivalent to: My.Cat.speciesName
+
+        alert(this.self.speciesName);   // dependent on 'this'
+
+        statics.totalCreated++;
+    },
+
+    clone: function() {
+        var cloned = new this.self;                      // dependent on 'this'
+
+        cloned.groupName = this.statics().speciesName;   // equivalent to: My.Cat.speciesName
+
+        return cloned;
+    }
+});
+
+
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.SnowLeopard', {
+    extend: 'My.Cat',
+
+    statics: {
+        speciesName: 'Snow Leopard'     // My.SnowLeopard.speciesName = 'Snow Leopard'
+    },
+
+    constructor: function() {
+        this.callParent();
+    }
+});
+
+var cat = new My.Cat();                 // alerts 'Cat', then alerts 'Cat'
+
+var snowLeopard = new My.SnowLeopard(); // alerts 'Cat', then alerts 'Snow Leopard'
+
+var clone = snowLeopard.clone();
+alert(<a href="#!/api/Ext-method-getClassName" rel="Ext-method-getClassName" class="docClass">Ext.getClassName</a>(clone));         // alerts 'My.SnowLeopard'
+alert(clone.groupName);                 // alerts 'Cat'
+
+alert(My.Cat.totalCreated);             // alerts 3
+</code></pre>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Ext.Class" rel="Ext.Class" class="docClass">Ext.Class</a></span><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='method-suspendEvents' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.mixin.Observable' rel='Ext.mixin.Observable' class='defined-in docClass'>Ext.mixin.Observable</a><br/><a href='source/Observable.html#Ext-mixin-Observable-method-suspendEvents' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.mixin.Observable-method-suspendEvents' class='name expandable'>suspendEvents</a>( <span class='pre'><a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a> queueSuspended</span> )</div><div class='description'><div class='short'>Suspends the firing of all events. ...</div><div class='long'><p>Suspends the firing of all events. (see <a href="#!/api/Ext.mixin.Observable-method-resumeEvents" rel="Ext.mixin.Observable-method-resumeEvents" class="docClass">resumeEvents</a>)</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>queueSuspended</span> : <a href="#!/api/Boolean" rel="Boolean" class="docClass">Boolean</a><div class='sub-desc'><p>Pass as true to queue up suspended events to be fired
+after the <a href="#!/api/Ext.mixin.Observable-method-resumeEvents" rel="Ext.mixin.Observable-method-resumeEvents" class="docClass">resumeEvents</a> call instead of discarding all suspended events.</p>
+</div></li></ul></div></div></div></div><div class='subsection'><div class='definedBy'>Defined By</div><h4 class='members-subtitle'>Static Methods</h3><div id='static-method-addConfig' class='member first-child inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-addConfig' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-addConfig' class='name expandable'>addConfig</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> config, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> fullMerge</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>config</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>fullMerge</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-addInheritableStatics' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-addInheritableStatics' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-addInheritableStatics' class='name expandable'>addInheritableStatics</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> members</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>members</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-addMember' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-addMember' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-addMember' class='name expandable'>addMember</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> member</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>member</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-addMembers' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-addMembers' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-addMembers' class='name expandable'>addMembers</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> members</span> )<strong class='static signature'>static</strong></div><div class='description'><div class='short'>Add methods / properties to the prototype of this class. ...</div><div class='long'><p>Add methods / properties to the prototype of this class.</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.awesome.Cat', {
+    constructor: function() {
+        ...
+    }
+});
+
+ My.awesome.Cat.implement({
+     meow: function() {
+        alert('Meowww...');
+     }
+ });
+
+ var kitty = new My.awesome.Cat;
+ kitty.meow();
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>members</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-addStatics' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-addStatics' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-addStatics' class='name expandable'>addStatics</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> members</span> ) : <a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a><strong class='static signature'>static</strong></div><div class='description'><div class='short'>Add / override static properties of this class. ...</div><div class='long'><p>Add / override static properties of this class.</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.cool.Class', {
+    ...
+});
+
+My.cool.Class.addStatics({
+    someProperty: 'someValue',      // My.cool.Class.someProperty = 'someValue'
+    method1: function() { ... },    // My.cool.Class.method1 = function() { ... };
+    method2: function() { ... }     // My.cool.Class.method2 = function() { ... };
+});
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>members</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a></span><div class='sub-desc'><p>this</p>
+</div></li></ul></div></div></div><div id='static-method-addXtype' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-addXtype' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-addXtype' class='name expandable'>addXtype</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> xtype</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>xtype</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-borrow' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-borrow' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-borrow' class='name expandable'>borrow</a>( <span class='pre'><a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a> fromClass, <a href="#!/api/Array" rel="Array" class="docClass">Array</a>/<a href="#!/api/String" rel="String" class="docClass">String</a> members</span> ) : <a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a><strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'>Borrow another class' members to the prototype of this class. ...</div><div class='long'><p>Borrow another class' members to the prototype of this class.</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('Bank', {
+    money: '$$$',
+    printMoney: function() {
+        alert('$$$$$$$');
+    }
+});
+
+<a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('Thief', {
+    ...
+});
+
+Thief.borrow(Bank, ['money', 'printMoney']);
+
+var steve = new Thief();
+
+alert(steve.money); // alerts '$$$'
+steve.printMoney(); // alerts '$$$$$$$'
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>fromClass</span> : <a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a><div class='sub-desc'><p>The class to borrow members from</p>
+</div></li><li><span class='pre'>members</span> : <a href="#!/api/Array" rel="Array" class="docClass">Array</a>/<a href="#!/api/String" rel="String" class="docClass">String</a><div class='sub-desc'><p>The names of the members to borrow</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a></span><div class='sub-desc'><p>this</p>
+</div></li></ul></div></div></div><div id='static-method-callParent' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-callParent' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-callParent' class='name expandable'>callParent</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> args</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>args</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-create' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-create' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-create' class='name expandable'>create</a>( <span class='pre'></span> ) : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><strong class='static signature'>static</strong></div><div class='description'><div class='short'>Create a new instance of this Class. ...</div><div class='long'><p>Create a new instance of this Class.</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.cool.Class', {
+    ...
+});
+
+My.cool.Class.create({
+    someConfig: true
+});
+</code></pre>
+
+<p>All parameters are passed to the constructor of the class.</p>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a></span><div class='sub-desc'><p>the created instance.</p>
+</div></li></ul></div></div></div><div id='static-method-createAlias' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-createAlias' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-createAlias' class='name expandable'>createAlias</a>( <span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/Object" rel="Object" class="docClass">Object</a> alias, <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/Object" rel="Object" class="docClass">Object</a> origin</span> )<strong class='static signature'>static</strong></div><div class='description'><div class='short'>Create aliases for existing prototype methods. ...</div><div class='long'><p>Create aliases for existing prototype methods. Example:</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.cool.Class', {
+    method1: function() { ... },
+    method2: function() { ... }
+});
+
+var test = new My.cool.Class();
+
+My.cool.Class.createAlias({
+    method3: 'method1',
+    method4: 'method2'
+});
+
+test.method3(); // test.method1()
+
+My.cool.Class.createAlias('method5', 'method3');
+
+test.method5(); // test.method3() -&gt; test.method1()
+</code></pre>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>alias</span> : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The new method name, or an object to set multiple aliases. See
+<a href="#!/api/Ext.Function-method-flexSetter" rel="Ext.Function-method-flexSetter" class="docClass">flexSetter</a></p>
+</div></li><li><span class='pre'>origin</span> : <a href="#!/api/String" rel="String" class="docClass">String</a>/<a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The original method name</p>
+</div></li></ul></div></div></div><div id='static-method-extend' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-extend' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-extend' class='name expandable'>extend</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> parent</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>parent</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-getName' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-getName' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-getName' class='name expandable'>getName</a>( <span class='pre'></span> ) : <a href="#!/api/String" rel="String" class="docClass">String</a><strong class='static signature'>static</strong></div><div class='description'><div class='short'>Get the current class' name in string format. ...</div><div class='long'><p>Get the current class' name in string format.</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.cool.Class', {
+    constructor: function() {
+        alert(this.self.getName()); // alerts 'My.cool.Class'
+    }
+});
+
+My.cool.Class.getName(); // 'My.cool.Class'
+</code></pre>
+<h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/String" rel="String" class="docClass">String</a></span><div class='sub-desc'><p>className</p>
+</div></li></ul></div></div></div><div id='static-method-implement' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-implement' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-implement' class='name expandable'>implement</a>( <span class='pre'></span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+</div></div></div><div id='static-method-mixin' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-mixin' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-mixin' class='name expandable'>mixin</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> name, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> mixinClass</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'>Used internally by the mixins pre-processor ...</div><div class='long'><p>Used internally by the mixins pre-processor</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>name</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>mixinClass</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-onExtended' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-onExtended' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-onExtended' class='name expandable'>onExtended</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> fn, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> scope</span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>fn</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li><li><span class='pre'>scope</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'>
+</div></li></ul></div></div></div><div id='static-method-override' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-override' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-override' class='name expandable'>override</a>( <span class='pre'><a href="#!/api/Object" rel="Object" class="docClass">Object</a> members</span> ) : <a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a><strong class='deprecated signature'>deprecated</strong><strong class='static signature'>static</strong></div><div class='description'><div class='short'>Override members of this class. ...</div><div class='long'><p>Override members of this class. Overridden methods can be invoked via
+<a href="#!/api/Ext.Base-method-callParent" rel="Ext.Base-method-callParent" class="docClass">callParent</a>.</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.Cat', {
+    constructor: function() {
+        alert("I'm a cat!");
+    }
+});
+
+My.Cat.override({
+    constructor: function() {
+        alert("I'm going to be a cat!");
+
+        var instance = this.callParent(arguments);
+
+        alert("Meeeeoooowwww");
+
+        return instance;
+    }
+});
+
+var kitty = new My.Cat(); // alerts "I'm going to be a cat!"
+                          // alerts "I'm a cat!"
+                          // alerts "Meeeeoooowwww"
+</code></pre>
+
+<p>As of 4.1, direct use of this method is deprecated. Use <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>
+instead:</p>
+
+<pre><code><a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a>('My.CatOverride', {
+    override: 'My.Cat',
+    constructor: function() {
+        alert("I'm going to be a cat!");
+
+        var instance = this.callParent(arguments);
+
+        alert("Meeeeoooowwww");
+
+        return instance;
+    }
+});
+</code></pre>
+
+<p>The above accomplishes the same result but can be managed by the <a href="#!/api/Ext.Loader" rel="Ext.Loader" class="docClass">Ext.Loader</a>
+which can properly order the override and its target class and the build process
+can determine whether the override is needed based on the required state of the
+target class (My.Cat).</p>
+        <div class='signature-box deprecated'>
+        <p>This method has been <strong>deprecated</strong> since 4.1.0</p>
+        <p>Use <a href="#!/api/Ext-method-define" rel="Ext-method-define" class="docClass">Ext.define</a> instead</p>
+
+        </div>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>members</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The properties to add to this class. This should be
+specified as an object literal containing one or more properties.</p>
+</div></li></ul><h3 class='pa'>Returns</h3><ul><li><span class='pre'><a href="#!/api/Ext.Base" rel="Ext.Base" class="docClass">Ext.Base</a></span><div class='sub-desc'><p>this class</p>
+</div></li></ul></div></div></div><div id='static-method-triggerExtended' class='member  inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><a href='#!/api/Ext.Base' rel='Ext.Base' class='defined-in docClass'>Ext.Base</a><br/><a href='source/Base.html#Ext-Base-static-method-triggerExtended' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.Base-static-method-triggerExtended' class='name expandable'>triggerExtended</a>( <span class='pre'></span> )<strong class='static signature'>static</strong><strong class='private signature'>private</strong></div><div class='description'><div class='short'> ...</div><div class='long'>
+</div></div></div></div></div><div class='members-section'><div class='definedBy'>Defined By</div><h3 class='members-title icon-event'>Events</h3><div class='subsection'><div id='event-complete' class='member first-child not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-event-complete' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-event-complete' class='name expandable'>complete</a>( <span class='pre'><a href="#!/api/Ext.data.Batch" rel="Ext.data.Batch" class="docClass">Ext.data.Batch</a> batch, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> operation, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> eOpts</span> )</div><div class='description'><div class='short'>Fired when all operations of this batch have been completed ...</div><div class='long'><p>Fired when all operations of this batch have been completed</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>batch</span> : <a href="#!/api/Ext.data.Batch" rel="Ext.data.Batch" class="docClass">Ext.data.Batch</a><div class='sub-desc'><p>The batch object</p>
+</div></li><li><span class='pre'>operation</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The last operation that was executed</p>
+</div></li><li><span class='pre'>eOpts</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The options object passed to <a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">Ext.util.Observable.addListener</a>.</p>
+
+
+
+</div></li></ul></div></div></div><div id='event-exception' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-event-exception' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-event-exception' class='name expandable'>exception</a>( <span class='pre'><a href="#!/api/Ext.data.Batch" rel="Ext.data.Batch" class="docClass">Ext.data.Batch</a> batch, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> operation, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> eOpts</span> )</div><div class='description'><div class='short'>Fired when a operation encountered an exception ...</div><div class='long'><p>Fired when a operation encountered an exception</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>batch</span> : <a href="#!/api/Ext.data.Batch" rel="Ext.data.Batch" class="docClass">Ext.data.Batch</a><div class='sub-desc'><p>The batch object</p>
+</div></li><li><span class='pre'>operation</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The operation that encountered the exception</p>
+</div></li><li><span class='pre'>eOpts</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The options object passed to <a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">Ext.util.Observable.addListener</a>.</p>
+
+
+
+</div></li></ul></div></div></div><div id='event-operationcomplete' class='member  not-inherited'><a href='#' class='side expandable'><span>&nbsp;</span></a><div class='title'><div class='meta'><span class='defined-in' rel='Ext.data.Batch'>Ext.data.Batch</span><br/><a href='source/Batch.html#Ext-data-Batch-event-operationcomplete' target='_blank' class='view-source'>view source</a></div><a href='#!/api/Ext.data.Batch-event-operationcomplete' class='name expandable'>operationcomplete</a>( <span class='pre'><a href="#!/api/Ext.data.Batch" rel="Ext.data.Batch" class="docClass">Ext.data.Batch</a> batch, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> operation, <a href="#!/api/Object" rel="Object" class="docClass">Object</a> eOpts</span> )</div><div class='description'><div class='short'>Fired when each operation of the batch completes ...</div><div class='long'><p>Fired when each operation of the batch completes</p>
+<h3 class="pa">Parameters</h3><ul><li><span class='pre'>batch</span> : <a href="#!/api/Ext.data.Batch" rel="Ext.data.Batch" class="docClass">Ext.data.Batch</a><div class='sub-desc'><p>The batch object</p>
+</div></li><li><span class='pre'>operation</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The operation that just completed</p>
+</div></li><li><span class='pre'>eOpts</span> : <a href="#!/api/Object" rel="Object" class="docClass">Object</a><div class='sub-desc'><p>The options object passed to <a href="#!/api/Ext.mixin.Observable-method-addListener" rel="Ext.mixin.Observable-method-addListener" class="docClass">Ext.util.Observable.addListener</a>.</p>
+
+
+
+</div></li></ul></div></div></div></div></div></div></div>
