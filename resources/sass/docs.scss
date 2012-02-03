@@ -1,0 +1,234 @@
+// Colors
+$docs-bg-color: #f8f8f8;
+$docs-text-color: #484848;
+$docs-link-color: #083772;
+$docs-link-hover-color: #0464BB;
+$docs-border-color: #bfbfbf;
+
+// Fonts
+$docs-font: "Helvetica Neue", "Helvetica", "Arial", "Lucida Grande", sans-serif;
+$docs-heading-font: "klavika-web-1", "klavika-web-2", sans-serif;
+$docs-monospace-font: "Menlo", "Courier New", "Courier", monospace;
+
+
+
+
+.class-overview, .guide-container, .comment-index {
+  min-height: 100px;
+  .clr {
+    clear: both; }
+  p, ul, ol {
+    color: #484848;
+    max-width: 900px; }
+  p {
+    padding: 0;
+    margin: 0 0 1em; }
+  p:last-child {
+    margin: 0; }
+  ul {
+    margin: 0 0 1em 2em;
+    li {
+      list-style: disc outside; } }
+  ol {
+    margin: 0 0 1em 2em;
+    li {
+      list-style: decimal outside; } }
+  em {
+    font-style: italic; }
+  strong {
+    font-weight: bold; }
+  h3 {
+    font-weight: bold;
+    font-size: 1.1em; }
+  h4 {
+    font-weight: bold; }
+  table {
+    margin-bottom: 10px;
+    tr:first-child {
+      td {
+        color: #000;
+        font-weight: bold; } }
+    td {
+      color: #484848;
+      padding: 2px 20px 2px 0; } }
+  pre {
+    background-color: #f7f7f7;
+    border: solid 1px #e8e8e8;
+    color: #314e64;
+    font-family: $docs-monospace-font;
+    padding: 10px 20px;
+    line-height: 1.3em;
+    margin: 10px 0 14px 0;
+    max-width: 900px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    code {
+      font-family: $docs-monospace-font; }
+    i,em {
+      font-style: normal; } }
+  pre.prettyprint {
+    padding: 10px 12px; } }
+
+
+
+.class-overview {
+  .hierarchy {
+    background-color: #f7f7f7;
+    border: 1px solid #ebebeb;
+    padding: 0 15px 15px 10px;
+    float: right;
+    margin: 0 0 40px 60px;
+    font-size: 12px;
+    .dependency, .alternate-class-name {
+      padding: 0 0 0 12px;
+      margin-top: 3px; }
+    .alternate-class-name {
+      color: $docs-text-color; }
+    .subclass {
+      background: url(../images/elbow-end.gif) no-repeat -5px 0;
+      margin-top: 3px;
+      padding: 0 0 0 12px;
+      &.first-child {
+        background: none;
+        padding-left: 15px; } } } }
+
+// Nice styles for headings inside documentation
+#center-container .doc-contents {
+  h1, h2 {
+    letter-spacing: 0; } }
+
+.class-overview {
+  p.private {
+    border: 1px solid #999;
+    color: #600;
+    background-color: #fee;
+    padding: 10px 50px;
+    text-align: center; }
+  .signature {
+    font-weight: bold;
+    text-transform: uppercase;
+    font-size: 0.7em;
+    margin-left: 5px;
+    padding: 0 3px; }
+  .new-keyword {
+    margin-left: 0;
+    margin-right: 3px;
+    color: $docs-link-color; }
+  .cfgGroup {
+    margin: 10px 0 3px 0; } }
+
+.members {
+  color: #444444;
+  padding-top: 10px;
+  clear: both;
+  first-child: {
+    padding-top: 0; }
+  .pre {
+    font-family: $docs-monospace-font;
+    font-size: 0.9em; }
+  .definedBy {
+    float: right;
+    padding: 0 20px 0 0;
+    font-weight: bold;
+    color: #666666; }
+  .subsection .definedBy {
+    // do not lower definedBy float when inside subsection
+    padding-top: 0; }
+  h3.pa {
+    padding: 10px 0 5px 0; }
+  .members-section, .comments-section {
+    margin-bottom: 40px;
+    h3.members-title {
+      margin: 20px 0 5px 0;
+      padding: 0 0 0 25px;
+      font-size: 1.3em;
+      font-weight: bold; } }
+  h4.members-subtitle {
+    padding-left: 25px;
+    margin: 10px 0 7px 0; }
+  ul ul {
+    list-style: circle;
+    margin-top: 1em; }
+  .sub-desc {
+    margin: 0.5em 0 1em; }
+  .description {
+    .short {
+      p {
+        margin: 0; } } }
+  a {
+    text-decoration: none; }
+  .member {
+    position: relative;
+    min-height: 2.5em;
+    border-style: solid;
+    border-color: #E0E0E0;
+    border-width: 0 0 1px 0;
+    padding: 10px 22px;
+    &.first-child {
+      border-width: 1px 0; }
+    .short {
+      display: none; }
+    .meta {
+      float: right;
+      text-align: right; }
+    .defined-in, .view-source {
+      font-family: "Helvetica", "Arial", sans-serif;
+      font-size: 0.9em; }
+    a.defined-in {
+      color: #888888;
+      &:hover {
+        color: $docs-link-hover-color; } }
+    a.view-source {
+      color: rgba(0, 0, 0, 0);
+      font-size: 0.9em;
+      &:hover {
+        color: $docs-link-hover-color; } }
+    &:hover {
+      a.view-source {
+        color: rgba(128, 128, 128, 1); } }
+    &.open {
+      a.side.expandable {
+        span {
+          background: url(../images/member-expanded.gif) no-repeat 1px 2px; } }
+      .short {
+        display: none; }
+      .long {
+        display: block; } }
+    .name {
+      font-weight: bold; }
+    .title {
+      padding-bottom: 3px; } } }
+
+.signature-box {
+  border: 1px solid #999;
+  padding: 10px 50px;
+  text-align: center;
+  &.template {
+    background-color: #eee; }
+  &.deprecated {
+    color: #600;
+    background-color: #fee;
+    strong {
+      text-transform: uppercase;
+      color: white;
+      padding: 0 3px;
+      background-color: #aa0000; } } }
+
+
+.logo {
+    padding: 0;
+}
+.logo a {
+    color: #000; font-size: 1.4em;
+}
+.members .member a.side {
+    display: none;
+}
+.members .member {
+    padding: 5px;
+}
+.members h3.members-title {
+    padding: 5px;
+}
+
+.hierarchy { display: none }

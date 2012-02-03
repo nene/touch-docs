@@ -31,7 +31,7 @@ Ext.define('Docs.view.Viewport', {
                 list.setMasked(true);
                 detailCard.setMasked(true);
                 Ext.Ajax.request({
-                    url: 'http://docs.sencha.com/touch/2-0/?print=/api/' + record.get('className'),
+                    url: 'output/' + record.get('className') + ".html",
                     success: function(response) {
                         detailCard.setHtml(response.responseText);
                         list.unmask();
